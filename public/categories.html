@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Shoply Admin Category Management"
+  >
+
+  <title>Shoply — Categories</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       TOPBAR
+  ====================================================== -->
+
+  <header class="admin-topbar">
+
+    <div class="admin-brand">
+      <a href="index.html">
+        SHOP<span>LY</span>
+      </a>
+
+      <small>ADMIN PANEL</small>
+    </div>
+
+    <div class="admin-top-actions">
+
+      <a
+        href="../index.html"
+        class="admin-nav-btn"
+      >
+        🛍 Store
+      </a>
+
+      <button
+        type="button"
+        class="admin-nav-btn"
+        data-admin-logout
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       ADMIN LAYOUT
+  ====================================================== -->
+
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="admin-sidebar">
+
+      <div class="admin-sidebar-title">
+        CONTROL CENTER
+      </div>
+
+      <nav class="admin-menu">
+
+        <a href="index.html">
+          <span>▦</span>
+          Dashboard
+        </a>
+
+        <a href="admin.html">
+          <span>◈</span>
+          Products
+        </a>
+
+        <a
+          href="categories.html"
+          class="active"
+        >
+          <span>◇</span>
+          Categories
+        </a>
+
+        <a href="order.html">
+          <span>◉</span>
+          Orders
+        </a>
+
+        <a href="customer.html">
+          <span>♙</span>
+          Customers
+        </a>
+
+        <a href="coupons.html">
+          <span>%</span>
+          Coupons
+        </a>
+
+        <a href="setting.html">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- ===================================================
+         MAIN
+    ==================================================== -->
+
+    <main class="admin-main">
+
+      <!-- PAGE HEADER -->
+
+      <section class="admin-page-header">
+
+        <div>
+
+          <div class="admin-eyebrow">
+            STORE ORGANIZATION
+          </div>
+
+          <h1>
+            Categories
+          </h1>
+
+          <p>
+            Create and organize product categories
+            for your Shoply store.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-primary-btn"
+          id="openCategoryModal"
+        >
+          + Add Category
+        </button>
+
+      </section>
+
+
+      <!-- =================================================
+           TOOLBAR
+      ================================================== -->
+
+      <section class="admin-toolbar">
+
+        <div class="admin-search">
+
+          <span>
+            🔎
+          </span>
+
+          <input
+            type="search"
+            id="categorySearch"
+            placeholder="Search categories..."
+            autocomplete="off"
+          >
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-secondary-btn"
+          id="refreshCategories"
+        >
+          ↻ Refresh
+        </button>
+
+      </section>
+
+
+      <!-- =================================================
+           CATEGORY GRID
+      ================================================== -->
+
+      <section class="admin-panel">
+
+        <div class="admin-panel-header">
+
+          <div>
+
+            <div class="admin-eyebrow">
+              CATEGORY MANAGER
+            </div>
+
+            <h2>
+              All Categories
+            </h2>
+
+          </div>
+
+          <div
+            id="categoryCount"
+            class="admin-result-count"
+          >
+            Loading...
+          </div>
+
+        </div>
+
+
+        <div
+          id="categoryGrid"
+          class="admin-category-grid"
+        >
+
+          <div
+            class="admin-loading-card"
+          >
+            Loading categories...
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           INFO CARDS
+      ================================================== -->
+
+      <section class="admin-info-grid">
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            ◇
+          </span>
+
+          <div>
+
+            <strong>
+              Easy Organization
+            </strong>
+
+            <p>
+              Keep products grouped into
+              clean and easy-to-browse categories.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            ⚡
+          </span>
+
+          <div>
+
+            <strong>
+              Store Navigation
+            </strong>
+
+            <p>
+              Categories help customers discover
+              products faster.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            ◈
+          </span>
+
+          <div>
+
+            <strong>
+              Category Images
+            </strong>
+
+            <p>
+              Add an image URL to give each
+              category its own visual identity.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FOOTER -->
+
+      <footer class="admin-footer">
+
+        <span>
+          © 2026 Shoply
+        </span>
+
+        <span>
+          Category Management
+        </span>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       CATEGORY MODAL
+  ====================================================== -->
+
+  <div
+    id="categoryModal"
+    class="admin-modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="admin-modal-overlay"
+      id="closeModalOverlay"
+    ></div>
+
+
+    <div class="admin-modal-box">
+
+      <div class="admin-modal-header">
+
+        <div>
+
+          <div class="admin-eyebrow">
+            CATEGORY
+          </div>
+
+          <h2 id="modalTitle">
+            Add Category
+          </h2>
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-modal-close"
+          id="closeCategoryModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <!-- FORM -->
+
+      <form id="categoryForm">
+
+        <input
+          type="hidden"
+          id="categoryId"
+        >
+
+
+        <div class="admin-form-group">
+
+          <label for="categoryName">
+            Category Name
+          </label>
+
+          <input
+            type="text"
+            id="categoryName"
+            name="name"
+            placeholder="e.g. Electronics"
+            required
+          >
+
+        </div>
+
+
+        <div class="admin-form-group">
+
+          <label for="categoryDescription">
+            Description
+          </label>
+
+          <textarea
+            id="categoryDescription"
+            name="description"
+            rows="4"
+            placeholder="Short category description..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="admin-form-group">
+
+          <label for="categoryImage">
+            Image URL
+          </label>
+
+          <input
+            type="text"
+            id="categoryImage"
+            name="image"
+            placeholder="images/electronics.jpg"
+          >
+
+          <small class="admin-field-help">
+            You can later replace this with your
+            GitHub/hosted image path.
+          </small>
+
+        </div>
+
+
+        <div class="admin-form-group">
+
+          <label for="categorySlug">
+            Slug
+          </label>
+
+          <input
+            type="text"
+            id="categorySlug"
+            name="slug"
+            placeholder="electronics"
+          >
+
+        </div>
+
+
+        <div class="admin-form-actions">
+
+          <button
+            type="button"
+            class="admin-secondary-btn"
+            id="cancelCategory"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="admin-primary-btn"
+            id="saveCategoryBtn"
+          >
+            Save Category
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+
+  <div
+    id="shoplyAdminToast"
+    aria-live="polite"
+  ></div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
+  <script src="../js/app.js"></script>
+  <script src="../js/admin.js"></script>
+
+
+  <!-- =====================================================
+       CATEGORY PAGE ENGINE
+  ====================================================== -->
+
+  <script>
+
+    let categories = [];
+    let editingCategoryId = null;
+
+
+    const grid =
+      document.getElementById(
+        "categoryGrid"
+      );
+
+    const search =
+      document.getElementById(
+        "categorySearch"
+      );
+
+    const count =
+      document.getElementById(
+        "categoryCount"
+      );
+
+    const modal =
+      document.getElementById(
+        "categoryModal"
+      );
+
+    const form =
+      document.getElementById(
+        "categoryForm"
+      );
+
+
+    /* =====================================================
+       LOAD
+    ====================================================== */
+
+    async function loadCategories() {
+
+      grid.innerHTML = `
+        <div class="admin-loading-card">
+          Loading categories...
+        </div>
+      `;
+
+      try {
+
+        categories =
+          await ShoplyAdmin.getCategories();
+
+        renderCategories(
+          categories
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        grid.innerHTML = `
+          <div
+            class="admin-loading-card"
+            style="grid-column:1/-1"
+          >
+
+            <strong>
+              Unable to load categories
+            </strong>
+
+            <p
+              style="
+                opacity:.6;
+                margin-top:8px;
+              "
+            >
+              ${escapeHTML(
+                error.message ||
+                "Server connection failed"
+              )}
+            </p>
+
+          </div>
+        `;
+
+        count.textContent =
+          "Connection error";
+      }
+
+    }
+
+
+    /* =====================================================
+       RENDER
+    ====================================================== */
+
+    function renderCategories(
+      list
+    ) {
+
+      count.textContent =
+        list.length +
+        (
+          list.length === 1
+            ? " category"
+            : " categories"
+        );
+
+
+      if (!list.length) {
+
+        grid.innerHTML = `
+          <div
+            class="admin-loading-card"
+            style="grid-column:1/-1"
+          >
+
+            <div
+              style="
+                font-size:45px;
+                margin-bottom:12px;
+              "
+            >
+              ◇
+            </div>
+
+            <strong>
+              No categories found
+            </strong>
+
+            <p
+              style="
+                opacity:.6;
+                margin:8px 0 18px;
+              "
+            >
+              Create your first category
+              to organize your products.
+            </p>
+
+            <button
+              type="button"
+              class="admin-primary-btn"
+              onclick="openAddModal()"
+            >
+              + Add Category
+            </button>
+
+          </div>
+        `;
+
+        return;
+      }
+
+
+      grid.innerHTML =
+        list.map(
+          category => {
+
+            const id =
+              category._id ||
+              category.id ||
+              "";
+
+            const name =
+              category.name ||
+              category.title ||
+              "Unnamed Category";
+
+            const description =
+              category.description ||
+              "No description available.";
+
+            const image =
+              category.image ||
+              category.imageUrl ||
+              category.thumbnail ||
+              "";
+
+            const slug =
+              category.slug ||
+              createSlug(name);
+
+
+            return `
+
+              <article
+                class="admin-category-card"
+              >
+
+                <div
+                  class="admin-category-image"
+                >
+
+                  ${
+                    image
+                      ? `
+                        <img
+                          src="${escapeHTML(image)}"
+                          alt="${escapeHTML(name)}"
+                          onerror="
+                            this.style.display='none';
+                            this.nextElementSibling.style.display='grid';
+                          "
+                        >
+
+                        <div
+                          class="category-image-fallback"
+                          style="display:none"
+                        >
+                          ◇
+                        </div>
+                      `
+                      : `
+                        <div
+                          class="category-image-fallback"
+                        >
+                          ◇
+                        </div>
+                      `
+                  }
+
+                </div>
+
+
+                <div
+                  class="admin-category-content"
+                >
+
+                  <div
+                    class="admin-category-top"
+                  >
+
+                    <h3>
+                      ${escapeHTML(name)}
+                    </h3>
+
+                    <span>
+                      ${escapeHTML(slug)}
+                    </span>
+
+                  </div>
+
+
+                  <p>
+                    ${escapeHTML(description)}
+                  </p>
+
+
+                  <div
+                    class="admin-category-actions"
+                  >
+
+                    <button
+                      type="button"
+                      class="admin-small-btn"
+                      onclick="
+                        editCategory('${escapeHTML(id)}')
+                      "
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      type="button"
+                      class="admin-small-btn danger"
+                      onclick="
+                        removeCategory('${escapeHTML(id)}')
+                      "
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </article>
+
+            `;
+
+          }
+        ).join("");
+
+    }
+
+
+    /* =====================================================
+       MODAL
+    ====================================================== */
+
+    function openAddModal() {
+
+      editingCategoryId = null;
+
+      form.reset();
+
+      document.getElementById(
+        "categoryId"
+      ).value = "";
+
+      document.getElementById(
+        "modalTitle"
+      ).textContent =
+        "Add Category";
+
+      document.getElementById(
+        "saveCategoryBtn"
+      ).textContent =
+        "Save Category";
+
+      modal.classList.add(
+        "open"
+      );
+
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      setTimeout(() => {
+
+        document.getElementById(
+          "categoryName"
+        ).focus();
+
+      }, 100);
+
+    }
+
+
+    function closeModal() {
+
+      modal.classList.remove(
+        "open"
+      );
+
+      modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      editingCategoryId = null;
+
+    }
+
+
+    /* =====================================================
+       EDIT
+    ====================================================== */
+
+    async function editCategory(id) {
+
+      const category =
+        categories.find(
+          item =>
+            String(
+              item._id ||
+              item.id
+            ) === String(id)
+        );
+
+
+      if (!category) {
+
+        ShoplyAdmin.toast(
+          "Category not found",
+          "error"
+        );
+
+        return;
+      }
+
+
+      editingCategoryId =
+        id;
+
+
+      document.getElementById(
+        "categoryId"
+      ).value = id;
+
+
+      document.getElementById(
+        "categoryName"
+      ).value =
+        category.name ||
+        category.title ||
+        "";
+
+
+      document.getElementById(
+        "categoryDescription"
+      ).value =
+        category.description ||
+        "";
+
+
+      document.getElementById(
+        "categoryImage"
+      ).value =
+        category.image ||
+        category.imageUrl ||
+        "";
+
+
+      document.getElementById(
+        "categorySlug"
+      ).value =
+        category.slug ||
+        createSlug(
+          category.name ||
+          category.title ||
+          ""
+        );
+
+
+      document.getElementById(
+        "modalTitle"
+      ).textContent =
+        "Edit Category";
+
+
+      document.getElementById(
+        "saveCategoryBtn"
+      ).textContent =
+        "Update Category";
+
+
+      modal.classList.add(
+        "open"
+      );
+
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+    }
+
+
+    /* =====================================================
+       DELETE
+    ====================================================== */
+
+    async function removeCategory(id) {
+
+      const category =
+        categories.find(
+          item =>
+            String(
+              item._id ||
+              item.id
+            ) === String(id)
+        );
+
+
+      const name =
+        category?.name ||
+        category?.title ||
+        "this category";
+
+
+      const confirmed =
+        confirm(
+          `Delete "${name}"?`
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      try {
+
+        await ShoplyAdmin.deleteCategory(
+          id
+        );
+
+        await loadCategories();
+
+      } catch (error) {
+
+        console.error(error);
+
+        ShoplyAdmin.toast(
+          error.message,
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SUBMIT
+    ====================================================== */
+
+    form.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+
+        const name =
+          document.getElementById(
+            "categoryName"
+          ).value.trim();
+
+
+        const description =
+          document.getElementById(
+            "categoryDescription"
+          ).value.trim();
+
+
+        const image =
+          document.getElementById(
+            "categoryImage"
+          ).value.trim();
+
+
+        let slug =
+          document.getElementById(
+            "categorySlug"
+          ).value.trim();
+
+
+        if (!name) {
+
+          ShoplyAdmin.toast(
+            "Category name is required",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (!slug) {
+          slug = createSlug(name);
+        }
+
+
+        const payload = {
+
+          name,
+
+          title: name,
+
+          description,
+
+          image,
+
+          slug
+
+        };
+
+
+        const button =
+          document.getElementById(
+            "saveCategoryBtn"
+          );
+
+
+        button.disabled = true;
+
+        button.style.opacity =
+          ".6";
+
+
+        try {
+
+          if (editingCategoryId) {
+
+            await ShoplyAdmin.updateCategory(
+              editingCategoryId,
+              payload
+            );
+
+          } else {
+
+            await ShoplyAdmin.createCategory(
+              payload
+            );
+
+          }
+
+
+          closeModal();
+
+          await loadCategories();
+
+        } catch (error) {
+
+          console.error(error);
+
+          ShoplyAdmin.toast(
+            error.message,
+            "error"
+          );
+
+        } finally {
+
+          button.disabled = false;
+
+          button.style.opacity =
+            "1";
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       AUTO SLUG
+    ====================================================== */
+
+    document
+      .getElementById(
+        "categoryName"
+      )
+      .addEventListener(
+        "input",
+        function () {
+
+          if (
+            !editingCategoryId
+          ) {
+
+            document.getElementById(
+              "categorySlug"
+            ).value =
+              createSlug(
+                this.value
+              );
+
+          }
+
+        }
+      );
+
+
+    function createSlug(
+      value
+    ) {
+
+      return String(value || "")
+        .toLowerCase()
+        .trim()
+        .replace(
+          /[^a-z0-9]+/g,
+          "-"
+        )
+        .replace(
+          /^-+|-+$/g,
+          ""
+        );
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+    ====================================================== */
+
+    search.addEventListener(
+      "input",
+      function () {
+
+        const term =
+          this.value
+            .trim()
+            .toLowerCase();
+
+
+        if (!term) {
+
+          renderCategories(
+            categories
+          );
+
+          return;
+        }
+
+
+        const filtered =
+          categories.filter(
+            category => {
+
+              const text = [
+
+                category.name,
+                category.title,
+                category.slug,
+                category.description
+
+              ]
+                .filter(Boolean)
+                .join(" ")
+                .toLowerCase();
+
+
+              return text.includes(
+                term
+              );
+
+            }
+          );
+
+
+        renderCategories(
+          filtered
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       BUTTON EVENTS
+    ====================================================== */
+
+    document
+      .getElementById(
+        "openCategoryModal"
+      )
+      .addEventListener(
+        "click",
+        openAddModal
+      );
+
+
+    document
+      .getElementById(
+        "closeCategoryModal"
+      )
+      .addEventListener(
+        "click",
+        closeModal
+      );
+
+
+    document
+      .getElementById(
+        "cancelCategory"
+      )
+      .addEventListener(
+        "click",
+        closeModal
+      );
+
+
+    document
+      .getElementById(
+        "closeModalOverlay"
+      )
+      .addEventListener(
+        "click",
+        closeModal
+      );
+
+
+    document
+      .getElementById(
+        "refreshCategories"
+      )
+      .addEventListener(
+        "click",
+        loadCategories
+      );
+
+
+    /* =====================================================
+       ESC KEY
+    ====================================================== */
+
+    document.addEventListener(
+      "keydown",
+      function (event) {
+
+        if (
+          event.key === "Escape" &&
+          modal.classList.contains(
+            "open"
+          )
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       HTML ESCAPE
+    ====================================================== */
+
+    function escapeHTML(
+      value
+    ) {
+
+      return String(value ?? "")
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =====================================================
+       START
+    ====================================================== */
+
+    loadCategories();
+
+  </script>
+
+</body>
+</html>

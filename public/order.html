@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Shoply Admin — Orders</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="admin-sidebar">
+
+    <div class="admin-brand">
+      <div class="admin-brand-logo">S</div>
+
+      <div>
+        <strong>SHOPLY</strong>
+        <span>ADMIN PANEL</span>
+      </div>
+    </div>
+
+    <nav class="admin-nav">
+
+      <a href="index.html">
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+      <a href="admin.html">
+        <span>▣</span>
+        Products
+      </a>
+
+      <a href="categories.html">
+        <span>◈</span>
+        Categories
+      </a>
+
+      <a href="order.html" class="active">
+        <span>🛒</span>
+        Orders
+      </a>
+
+      <a href="customer.html">
+        <span>♙</span>
+        Customers
+      </a>
+
+      <a href="coupons.html">
+        <span>%</span>
+        Coupons
+      </a>
+
+      <a href="setting.html">
+        <span>⚙</span>
+        Settings
+      </a>
+
+    </nav>
+
+    <div class="admin-sidebar-bottom">
+
+      <a href="../index.html" target="_blank">
+        <span>↗</span>
+        View Store
+      </a>
+
+      <button type="button" id="logoutBtn">
+        <span>⇥</span>
+        Logout
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="admin-main">
+
+    <!-- TOP BAR -->
+
+    <header class="admin-topbar">
+
+      <div>
+        <div class="admin-page-kicker">
+          SHOPLY MANAGEMENT
+        </div>
+
+        <h1>Orders</h1>
+
+        <p>
+          Manage customer orders, payments and delivery status.
+        </p>
+      </div>
+
+      <div class="admin-top-actions">
+
+        <button
+          class="admin-btn secondary"
+          id="refreshOrders"
+        >
+          ↻ Refresh
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- ================= STATS ================= -->
+
+    <section class="admin-stats-grid">
+
+      <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+          🛒
+        </div>
+
+        <div>
+          <span>Total Orders</span>
+          <strong id="totalOrders">0</strong>
+        </div>
+
+      </div>
+
+
+      <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+          ⏳
+        </div>
+
+        <div>
+          <span>Pending</span>
+          <strong id="pendingOrders">0</strong>
+        </div>
+
+      </div>
+
+
+      <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+          ✓
+        </div>
+
+        <div>
+          <span>Delivered</span>
+          <strong id="deliveredOrders">0</strong>
+        </div>
+
+      </div>
+
+
+      <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+          ₹
+        </div>
+
+        <div>
+          <span>Total Revenue</span>
+          <strong id="totalRevenue">₹0</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ORDER PANEL ================= -->
+
+    <section class="admin-panel">
+
+      <div class="admin-panel-head">
+
+        <div>
+          <h2>Order Management</h2>
+
+          <p>
+            Search and update customer orders.
+          </p>
+        </div>
+
+
+        <div class="admin-search-wrap">
+
+          <span>⌕</span>
+
+          <input
+            type="search"
+            id="orderSearch"
+            placeholder="Search order, customer..."
+            autocomplete="off"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- FILTERS -->
+
+      <div class="order-filter-bar">
+
+        <button
+          class="order-filter active"
+          data-filter="all"
+        >
+          All
+        </button>
+
+        <button
+          class="order-filter"
+          data-filter="pending"
+        >
+          Pending
+        </button>
+
+        <button
+          class="order-filter"
+          data-filter="confirmed"
+        >
+          Confirmed
+        </button>
+
+        <button
+          class="order-filter"
+          data-filter="processing"
+        >
+          Processing
+        </button>
+
+        <button
+          class="order-filter"
+          data-filter="shipped"
+        >
+          Shipped
+        </button>
+
+        <button
+          class="order-filter"
+          data-filter="delivered"
+        >
+          Delivered
+        </button>
+
+        <button
+          class="order-filter"
+          data-filter="cancelled"
+        >
+          Cancelled
+        </button>
+
+      </div>
+
+
+      <!-- TABLE -->
+
+      <div class="admin-table-wrap">
+
+        <table class="admin-table">
+
+          <thead>
+
+            <tr>
+
+              <th>Order</th>
+
+              <th>Customer</th>
+
+              <th>Items</th>
+
+              <th>Total</th>
+
+              <th>Payment</th>
+
+              <th>Date</th>
+
+              <th>Status</th>
+
+              <th>Action</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="orderTableBody">
+
+            <tr>
+
+              <td colspan="8">
+
+                <div class="admin-empty">
+
+                  <div class="admin-empty-icon">
+                    ◌
+                  </div>
+
+                  <h3>
+                    Loading orders...
+                  </h3>
+
+                  <p>
+                    Please wait while orders are loaded.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ORDER MODAL ================= -->
+
+    <div
+      class="admin-modal"
+      id="orderModal"
+    >
+
+      <div class="admin-modal-box order-modal-box">
+
+        <div class="admin-modal-head">
+
+          <div>
+
+            <div class="admin-page-kicker">
+              ORDER DETAILS
+            </div>
+
+            <h2 id="modalOrderId">
+              Order
+            </h2>
+
+          </div>
+
+          <button
+            type="button"
+            class="admin-modal-close"
+            id="closeOrderModal"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <!-- CUSTOMER -->
+
+        <div class="order-detail-section">
+
+          <h3>Customer Information</h3>
+
+          <div class="customer-detail-grid">
+
+            <div class="customer-detail-box">
+
+              <span>Name</span>
+
+              <strong id="detailCustomerName">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="customer-detail-box">
+
+              <span>Email</span>
+
+              <strong id="detailCustomerEmail">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="customer-detail-box">
+
+              <span>Phone</span>
+
+              <strong id="detailCustomerPhone">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="customer-detail-box">
+
+              <span>Payment</span>
+
+              <strong id="detailPayment">
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ITEMS -->
+
+        <div class="order-detail-section">
+
+          <h3>Order Items</h3>
+
+          <div
+            class="order-items-list"
+            id="detailItems"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="order-detail-section">
+
+          <h3>Delivery Address</h3>
+
+          <div class="customer-address-box">
+
+            <p id="detailAddress">
+              No address available.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- TOTAL -->
+
+        <div class="order-total-box">
+
+          <div>
+            <span>Subtotal</span>
+            <strong id="detailSubtotal">₹0</strong>
+          </div>
+
+          <div>
+            <span>Delivery</span>
+            <strong id="detailDelivery">₹0</strong>
+          </div>
+
+          <div>
+            <span>Discount</span>
+            <strong id="detailDiscount">₹0</strong>
+          </div>
+
+          <div class="grand-total">
+            <span>Total</span>
+            <strong id="detailTotal">₹0</strong>
+          </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="order-status-editor">
+
+          <label for="orderStatus">
+            Update Order Status
+          </label>
+
+          <select id="orderStatus">
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="confirmed">
+              Confirmed
+            </option>
+
+            <option value="processing">
+              Processing
+            </option>
+
+            <option value="shipped">
+              Shipped
+            </option>
+
+            <option value="delivered">
+              Delivered
+            </option>
+
+            <option value="cancelled">
+              Cancelled
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="admin-modal-actions">
+
+          <button
+            type="button"
+            class="admin-btn secondary"
+            id="closeOrderBtn"
+          >
+            Close
+          </button>
+
+          <button
+            type="button"
+            class="admin-btn primary"
+            id="updateOrderBtn"
+          >
+            Update Status
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div
+      class="admin-toast"
+      id="adminToast"
+    >
+      <span id="adminToastText">
+        Done
+      </span>
+    </div>
+
+  </main>
+
+
+  <!-- ================= SCRIPTS ================= -->
+
+  <script src="../js/app.js"></script>
+  <script src="../js/admin.js"></script>
+
+
+  <script>
+
+    let allOrders = [];
+
+    let currentOrder = null;
+
+    let currentFilter = "all";
+
+
+    const tableBody =
+      document.getElementById("orderTableBody");
+
+    const searchInput =
+      document.getElementById("orderSearch");
+
+    const refreshButton =
+      document.getElementById("refreshOrders");
+
+    const modal =
+      document.getElementById("orderModal");
+
+
+    /* ================= HELPERS ================= */
+
+    function money(value) {
+
+      return "₹" +
+        Number(value || 0)
+          .toLocaleString("en-IN");
+
+    }
+
+
+    function escapeHTML(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    function getOrderId(order) {
+
+      return (
+        order._id ||
+        order.id ||
+        order.orderId ||
+        order.orderNumber ||
+        "N/A"
+      );
+
+    }
+
+
+    function getOrderCustomer(order) {
+
+      const customer =
+        order.customer ||
+        order.user ||
+        {};
+
+      return {
+
+        name:
+          customer.name ||
+          customer.fullName ||
+          order.customerName ||
+          order.name ||
+          order.shippingAddress?.name ||
+          "Guest",
+
+        email:
+          customer.email ||
+          order.customerEmail ||
+          order.email ||
+          "—",
+
+        phone:
+          customer.phone ||
+          customer.mobile ||
+          order.phone ||
+          order.mobile ||
+          order.shippingAddress?.phone ||
+          "—"
+
+      };
+
+    }
+
+
+    function getOrderItems(order) {
+
+      return (
+        order.items ||
+        order.products ||
+        order.cart ||
+        []
+      );
+
+    }
+
+
+    function getOrderTotal(order) {
+
+      return Number(
+        order.total ??
+        order.totalAmount ??
+        order.grandTotal ??
+        order.amount ??
+        0
+      );
+
+    }
+
+
+    function getOrderStatus(order) {
+
+      return String(
+        order.status ||
+        order.orderStatus ||
+        "pending"
+      ).toLowerCase();
+
+    }
+
+
+    function getOrderDate(order) {
+
+      const date =
+        order.createdAt ||
+        order.created_at ||
+        order.date ||
+        order.orderDate;
+
+      if (!date) return "—";
+
+      const parsed =
+        new Date(date);
+
+      if (
+        Number.isNaN(
+          parsed.getTime()
+        )
+      ) {
+        return "—";
+      }
+
+      return parsed.toLocaleDateString(
+        "en-IN",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    function getPaymentMethod(order) {
+
+      return (
+        order.paymentMethod ||
+        order.payment_type ||
+        order.paymentType ||
+        order.method ||
+        "—"
+      );
+
+    }
+
+
+    function statusClass(status) {
+
+      if (status === "delivered") {
+        return "success";
+      }
+
+      if (status === "cancelled") {
+        return "danger";
+      }
+
+      if (
+        status === "shipped" ||
+        status === "confirmed"
+      ) {
+        return "info";
+      }
+
+      if (status === "processing") {
+        return "warning";
+      }
+
+      return "pending";
+
+    }
+
+
+    /* ================= TOAST ================= */
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById(
+          "adminToast"
+        );
+
+      const text =
+        document.getElementById(
+          "adminToastText"
+        );
+
+      text.textContent = message;
+
+      toast.classList.add("show");
+
+      setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 2500);
+
+    }
+
+
+    /* ================= LOAD ORDERS ================= */
+
+    async function loadOrders() {
+
+      tableBody.innerHTML = `
+
+        <tr>
+
+          <td colspan="8">
+
+            <div class="admin-empty">
+
+              <div class="admin-empty-icon">
+                ◌
+              </div>
+
+              <h3>
+                Loading orders...
+              </h3>
+
+              <p>
+                Fetching order data.
+              </p>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      `;
+
+
+      try {
+
+        let response;
+
+
+        if (
+          window.ShoplyAdmin &&
+          typeof window.ShoplyAdmin.getOrders ===
+          "function"
+        ) {
+
+          response =
+            await window.ShoplyAdmin.getOrders();
+
+        } else {
+
+          const token =
+            localStorage.getItem(
+              "shoplyToken"
+            );
+
+          const headers = {};
+
+          if (token) {
+
+            headers.Authorization =
+              "Bearer " + token;
+
+          }
+
+
+          const res =
+            await fetch(
+              "/api/orders",
+              {
+                headers
+              }
+            );
+
+
+          if (!res.ok) {
+
+            throw new Error(
+              "Orders request failed"
+            );
+
+          }
+
+
+          response =
+            await res.json();
+
+        }
+
+
+        if (Array.isArray(response)) {
+
+          allOrders = response;
+
+        } else {
+
+          allOrders =
+            response?.orders ||
+            response?.data ||
+            [];
+
+        }
+
+
+        renderOrders();
+
+        updateStats();
+
+      } catch (error) {
+
+        console.error(
+          "Orders error:",
+          error
+        );
+
+
+        allOrders = [];
+
+        updateStats();
+
+
+        tableBody.innerHTML = `
+
+          <tr>
+
+            <td colspan="8">
+
+              <div class="admin-empty">
+
+                <div class="admin-empty-icon">
+                  !
+                </div>
+
+                <h3>
+                  Orders unavailable
+                </h3>
+
+                <p>
+                  The orders API could not be loaded.
+                  Check your backend connection.
+                </p>
+
+                <button
+                  class="admin-btn secondary"
+                  onclick="loadOrders()"
+                >
+                  Try Again
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+
+    }
+
+
+    /* ================= RENDER ================= */
+
+    function renderOrders() {
+
+      const search =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+
+      let orders =
+        [...allOrders];
+
+
+      if (
+        currentFilter !==
+        "all"
+      ) {
+
+        orders =
+          orders.filter(
+            order =>
+              getOrderStatus(order) ===
+              currentFilter
+          );
+
+      }
+
+
+      if (search) {
+
+        orders =
+          orders.filter(order => {
+
+            const id =
+              String(
+                getOrderId(order)
+              ).toLowerCase();
+
+            const customer =
+              getOrderCustomer(order);
+
+            return (
+              id.includes(search) ||
+              customer.name
+                .toLowerCase()
+                .includes(search) ||
+              customer.email
+                .toLowerCase()
+                .includes(search) ||
+              customer.phone
+                .toLowerCase()
+                .includes(search)
+            );
+
+          });
+
+      }
+
+
+      if (!orders.length) {
+
+        tableBody.innerHTML = `
+
+          <tr>
+
+            <td colspan="8">
+
+              <div class="admin-empty">
+
+                <div class="admin-empty-icon">
+                  🛒
+                </div>
+
+                <h3>
+                  No orders found
+                </h3>
+
+                <p>
+                  Orders matching your filters
+                  will appear here.
+                </p>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        `;
+
+        return;
+
+      }
+
+
+      tableBody.innerHTML =
+        orders.map(order => {
+
+          const id =
+            getOrderId(order);
+
+          const customer =
+            getOrderCustomer(order);
+
+          const items =
+            getOrderItems(order);
+
+          const total =
+            getOrderTotal(order);
+
+          const status =
+            getOrderStatus(order);
+
+          const payment =
+            getPaymentMethod(order);
+
+          const date =
+            getOrderDate(order);
+
+
+          return `
+
+            <tr>
+
+              <td>
+
+                <button
+                  class="order-id-btn"
+                  data-id="${escapeHTML(id)}"
+                >
+                  #${escapeHTML(
+                    String(id).slice(-10)
+                  )}
+                </button>
+
+              </td>
+
+
+              <td>
+
+                <div class="order-customer">
+
+                  <span class="customer-table-avatar">
+                    ${escapeHTML(
+                      customer.name
+                        .charAt(0)
+                        .toUpperCase()
+                    )}
+                  </span>
+
+                  <div>
+
+                    <strong>
+                      ${escapeHTML(
+                        customer.name
+                      )}
+                    </strong>
+
+                    <small>
+                      ${escapeHTML(
+                        customer.email
+                      )}
+                    </small>
+
+                  </div>
+
+                </div>
+
+              </td>
+
+
+              <td>
+                ${items.length || 0}
+              </td>
+
+
+              <td>
+                <strong>
+                  ${money(total)}
+                </strong>
+              </td>
+
+
+              <td>
+                ${escapeHTML(payment)}
+              </td>
+
+
+              <td>
+                ${date}
+              </td>
+
+
+              <td>
+
+                <span
+                  class="admin-status ${statusClass(status)}"
+                >
+                  ${escapeHTML(
+                    status
+                      .charAt(0)
+                      .toUpperCase() +
+                    status.slice(1)
+                  )}
+                </span>
+
+              </td>
+
+
+              <td>
+
+                <button
+                  class="admin-action-btn view-order"
+                  data-id="${escapeHTML(id)}"
+                  title="View Order"
+                >
+                  View
+                </button>
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }).join("");
+
+
+      document
+        .querySelectorAll(
+          ".order-id-btn, .view-order"
+        )
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              openOrder(
+                button.dataset.id
+              );
+
+            }
+          );
+
+        });
+
+    }
+
+
+    /* ================= STATS ================= */
+
+    function updateStats() {
+
+      const total =
+        allOrders.length;
+
+
+      const pending =
+        allOrders.filter(order => {
+
+          const status =
+            getOrderStatus(order);
+
+          return (
+            status === "pending" ||
+            status === "confirmed" ||
+            status === "processing"
+          );
+
+        }).length;
+
+
+      const delivered =
+        allOrders.filter(
+          order =>
+            getOrderStatus(order) ===
+            "delivered"
+        ).length;
+
+
+      const revenue =
+        allOrders.reduce(
+          (sum, order) =>
+            sum +
+            getOrderTotal(order),
+          0
+        );
+
+
+      document.getElementById(
+        "totalOrders"
+      ).textContent = total;
+
+
+      document.getElementById(
+        "pendingOrders"
+      ).textContent = pending;
+
+
+      document.getElementById(
+        "deliveredOrders"
+      ).textContent = delivered;
+
+
+      document.getElementById(
+        "totalRevenue"
+      ).textContent =
+        money(revenue);
+
+    }
+
+
+    /* ================= OPEN ORDER ================= */
+
+    function openOrder(id) {
+
+      const order =
+        allOrders.find(
+          item =>
+            String(
+              getOrderId(item)
+            ) === String(id)
+        );
+
+
+      if (!order) return;
+
+
+      currentOrder =
+        order;
+
+
+      const customer =
+        getOrderCustomer(order);
+
+
+      const items =
+        getOrderItems(order);
+
+
+      const status =
+        getOrderStatus(order);
+
+
+      const total =
+        getOrderTotal(order);
+
+
+      document.getElementById(
+        "modalOrderId"
+      ).textContent =
+        "#" + String(id).slice(-12);
+
+
+      document.getElementById(
+        "detailCustomerName"
+      ).textContent =
+        customer.name;
+
+
+      document.getElementById(
+        "detailCustomerEmail"
+      ).textContent =
+        customer.email;
+
+
+      document.getElementById(
+        "detailCustomerPhone"
+      ).textContent =
+        customer.phone;
+
+
+      document.getElementById(
+        "detailPayment"
+      ).textContent =
+        getPaymentMethod(order);
+
+
+      document.getElementById(
+        "orderStatus"
+      ).value =
+        status;
+
+
+      /* ITEMS */
+
+      const itemsContainer =
+        document.getElementById(
+          "detailItems"
+        );
+
+
+      if (!items.length) {
+
+        itemsContainer.innerHTML =
+          "<p>No item details available.</p>";
+
+      } else {
+
+        itemsContainer.innerHTML =
+          items.map(item => {
+
+            const name =
+              item.name ||
+              item.title ||
+              item.productName ||
+              "Product";
+
+
+            const quantity =
+              Number(
+                item.quantity ||
+                item.qty ||
+                1
+              );
+
+
+            const price =
+              Number(
+                item.price ||
+                item.unitPrice ||
+                0
+              );
+
+
+            const image =
+              item.image ||
+              item.imageUrl ||
+              "";
+
+
+            return `
+
+              <div class="order-item-row">
+
+                <div class="order-item-image">
+
+                  ${
+                    image
+                    ? `
+                      <img
+                        src="${escapeHTML(image)}"
+                        alt=""
+                        onerror="this.style.display='none'"
+                      >
+                    `
+                    : "▣"
+                  }
+
+                </div>
+
+
+                <div class="order-item-info">
+
+                  <strong>
+                    ${escapeHTML(name)}
+                  </strong>
+
+                  <span>
+                    Qty: ${quantity}
+                  </span>
+
+                </div>
+
+
+                <strong>
+                  ${money(
+                    price * quantity
+                  )}
+                </strong>
+
+              </div>
+
+            `;
+
+          }).join("");
+
+      }
+
+
+      /* ADDRESS */
+
+      const address =
+        order.shippingAddress ||
+        order.address ||
+        order.deliveryAddress ||
+        order.customer?.address;
+
+
+      let addressText =
+        "No address available.";
+
+
+      if (
+        typeof address ===
+        "string"
+      ) {
+
+        addressText =
+          address;
+
+      } else if (
+        address &&
+        typeof address ===
+        "object"
+      ) {
+
+        addressText = [
+
+          address.name,
+
+          address.address ||
+          address.street,
+
+          address.area,
+
+          address.city,
+
+          address.state,
+
+          address.pincode ||
+          address.zip ||
+          address.postalCode
+
+        ]
+          .filter(Boolean)
+          .join(", ");
+
+      }
+
+
+      document.getElementById(
+        "detailAddress"
+      ).textContent =
+        addressText;
+
+
+      /* TOTALS */
+
+      const subtotal =
+        Number(
+          order.subtotal ??
+          order.subTotal ??
+          total
+        );
+
+
+      const delivery =
+        Number(
+          order.deliveryCharge ??
+          order.deliveryFee ??
+          order.shipping ??
+          0
+        );
+
+
+      const discount =
+        Number(
+          order.discount ??
+          order.discountAmount ??
+          0
+        );
+
+
+      document.getElementById(
+        "detailSubtotal"
+      ).textContent =
+        money(subtotal);
+
+
+      document.getElementById(
+        "detailDelivery"
+      ).textContent =
+        money(delivery);
+
+
+      document.getElementById(
+        "detailDiscount"
+      ).textContent =
+        money(discount);
+
+
+      document.getElementById(
+        "detailTotal"
+      ).textContent =
+        money(total);
+
+
+      modal.classList.add(
+        "show"
+      );
+
+    }
+
+
+    /* ================= UPDATE STATUS ================= */
+
+    document
+      .getElementById(
+        "updateOrderBtn"
+      )
+      .addEventListener(
+        "click",
+        async function() {
+
+          if (!currentOrder) {
+            return;
+          }
+
+
+          const newStatus =
+            document.getElementById(
+              "orderStatus"
+            ).value;
+
+
+          const id =
+            getOrderId(
+              currentOrder
+            );
+
+
+          this.disabled = true;
+
+          this.textContent =
+            "Updating...";
+
+
+          try {
+
+            if (
+              window.ShoplyAdmin &&
+              typeof window.ShoplyAdmin
+                .updateOrderStatus ===
+              "function"
+            ) {
+
+              await window.ShoplyAdmin
+                .updateOrderStatus(
+                  id,
+                  newStatus
+                );
+
+            } else {
+
+              const token =
+                localStorage.getItem(
+                  "shoplyToken"
+                );
+
+
+              const response =
+                await fetch(
+                  "/api/orders/" +
+                  encodeURIComponent(id) +
+                  "/status",
+                  {
+                    method: "PUT",
+
+                    headers: {
+                      "Content-Type":
+                        "application/json",
+
+                      ...(token
+                        ? {
+                            Authorization:
+                              "Bearer " +
+                              token
+                          }
+                        : {})
+                    },
+
+                    body:
+                      JSON.stringify({
+                        status:
+                          newStatus
+                      })
+
+                  }
+                );
+
+
+              if (!response.ok) {
+
+                throw new Error(
+                  "Status update failed"
+                );
+
+              }
+
+            }
+
+
+            currentOrder.status =
+              newStatus;
+
+
+            const index =
+              allOrders.findIndex(
+                order =>
+                  String(
+                    getOrderId(order)
+                  ) ===
+                  String(id)
+              );
+
+
+            if (index !== -1) {
+
+              allOrders[index].status =
+                newStatus;
+
+            }
+
+
+            renderOrders();
+
+            updateStats();
+
+            closeModal();
+
+            showToast(
+              "Order status updated"
+            );
+
+
+          } catch (error) {
+
+            console.error(
+              error
+            );
+
+            showToast(
+              "Unable to update order"
+            );
+
+          }
+
+
+          this.disabled = false;
+
+          this.textContent =
+            "Update Status";
+
+        }
+      );
+
+
+    /* ================= FILTER ================= */
+
+    document
+      .querySelectorAll(
+        ".order-filter"
+      )
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            document
+              .querySelectorAll(
+                ".order-filter"
+              )
+              .forEach(item =>
+                item.classList.remove(
+                  "active"
+                )
+              );
+
+
+            this.classList.add(
+              "active"
+            );
+
+
+            currentFilter =
+              this.dataset.filter;
+
+
+            renderOrders();
+
+          }
+        );
+
+      });
+
+
+    /* ================= SEARCH ================= */
+
+    searchInput.addEventListener(
+      "input",
+      renderOrders
+    );
+
+
+    /* ================= MODAL CLOSE ================= */
+
+    function closeModal() {
+
+      modal.classList.remove(
+        "show"
+      );
+
+      currentOrder = null;
+
+    }
+
+
+    document
+      .getElementById(
+        "closeOrderModal"
+      )
+      .addEventListener(
+        "click",
+        closeModal
+      );
+
+
+    document
+      .getElementById(
+        "closeOrderBtn"
+      )
+      .addEventListener(
+        "click",
+        closeModal
+      );
+
+
+    modal.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target === modal
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key ===
+          "Escape"
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    /* ================= REFRESH ================= */
+
+    refreshButton.addEventListener(
+      "click",
+      async function() {
+
+        this.disabled = true;
+
+        this.textContent =
+          "↻ Loading...";
+
+
+        await loadOrders();
+
+
+        this.disabled = false;
+
+        this.textContent =
+          "↻ Refresh";
+
+
+        showToast(
+          "Orders refreshed"
+        );
+
+      }
+    );
+
+
+    /* ================= LOGOUT ================= */
+
+    document
+      .getElementById(
+        "logoutBtn"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          localStorage.removeItem(
+            "shoplyToken"
+          );
+
+          localStorage.removeItem(
+            "shoplyUser"
+          );
+
+          sessionStorage.removeItem(
+            "shoplyToken"
+          );
+
+          sessionStorage.removeItem(
+            "shoplyUser"
+          );
+
+
+          window.location.href =
+            "../login.html";
+
+        }
+      );
+
+
+    /* ================= INIT ================= */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function() {
+
+        loadOrders();
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>

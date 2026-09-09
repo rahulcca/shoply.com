@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login | Shoply</title>
+  <meta name="description" content="Login or create your Shoply account.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(0, 229, 255, 0.10),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 85% 75%,
+          rgba(123, 92, 255, 0.12),
+          transparent 35%
+        ),
+        #050814;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 110px 20px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated background lights */
+
+    .auth-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orbFloat 8s ease-in-out infinite alternate;
+    }
+
+    .auth-orb.one {
+      width: 300px;
+      height: 300px;
+      background: rgba(0, 229, 255, 0.13);
+      top: 5%;
+      left: -100px;
+    }
+
+    .auth-orb.two {
+      width: 350px;
+      height: 350px;
+      background: rgba(123, 92, 255, 0.13);
+      right: -130px;
+      bottom: 0;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes orbFloat {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+
+      to {
+        transform: translate3d(30px, -20px, 0) scale(1.08);
+      }
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 1050px;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      position: relative;
+      z-index: 2;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      overflow: hidden;
+      background: rgba(8, 13, 27, 0.78);
+      backdrop-filter: blur(25px);
+      box-shadow:
+        0 30px 100px rgba(0,0,0,0.45),
+        0 0 80px rgba(0,229,255,0.04);
+    }
+
+    /* LEFT SIDE */
+
+    .auth-showcase {
+      padding: 50px 42px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 600px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(0,229,255,0.07),
+          rgba(123,92,255,0.06),
+          rgba(255,79,216,0.04)
+        );
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .showcase-logo {
+      font-family: "Orbitron", sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background:
+        linear-gradient(
+          90deg,
+          #00e5ff,
+          #7b5cff,
+          #ff4fd8
+        );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 25px;
+    }
+
+    .auth-showcase h1 {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.15;
+      margin: 0 0 20px;
+    }
+
+    .auth-showcase h1 span {
+      background:
+        linear-gradient(
+          90deg,
+          #00e5ff,
+          #7b5cff,
+          #ff4fd8
+        );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .showcase-text {
+      color: #98a5bb;
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 35px;
+    }
+
+    .benefits {
+      display: grid;
+      gap: 14px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      color: #dce4f2;
+      font-size: 14px;
+    }
+
+    .benefit-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(0,229,255,0.07);
+      border: 1px solid rgba(0,229,255,0.15);
+      flex-shrink: 0;
+    }
+
+    /* RIGHT SIDE */
+
+    .auth-box {
+      padding: 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 600px;
+    }
+
+    .auth-heading {
+      margin-bottom: 28px;
+    }
+
+    .auth-heading h2 {
+      margin: 0 0 8px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 27px;
+    }
+
+    .auth-heading p {
+      margin: 0;
+      color: #7f8ca4;
+      font-size: 14px;
+    }
+
+    /* TABS */
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 5px;
+      border-radius: 13px;
+      background: rgba(255,255,255,0.04);
+      margin-bottom: 25px;
+    }
+
+    .auth-tab {
+      border: 0;
+      background: transparent;
+      color: #8491a9;
+      padding: 12px;
+      border-radius: 9px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s ease;
+      font-family: inherit;
+    }
+
+    .auth-tab.active {
+      color: #061018;
+      background: linear-gradient(
+        90deg,
+        #00e5ff,
+        #7b5cff
+      );
+    }
+
+    /* FORM */
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+      animation: formAppear 0.3s ease;
+    }
+
+    @keyframes formAppear {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-group {
+      margin-bottom: 17px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #c8d2e3;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 15px 14px 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      outline: none;
+      font-family: inherit;
+      font-size: 14px;
+      transition: 0.25s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #00e5ff;
+      box-shadow:
+        0 0 0 3px rgba(0,229,255,0.07),
+        0 0 25px rgba(0,229,255,0.04);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: #7f8ca4;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .auth-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 5px 0 20px;
+      font-size: 12px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #8e9ab1;
+      cursor: pointer;
+    }
+
+    .remember input {
+      accent-color: #00e5ff;
+    }
+
+    .forgot-link {
+      color: #00e5ff;
+      text-decoration: none;
+    }
+
+    .auth-submit {
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      border-radius: 13px;
+      cursor: pointer;
+      color: #061018;
+      font-size: 14px;
+      font-weight: 800;
+      font-family: inherit;
+      background:
+        linear-gradient(
+          90deg,
+          #00e5ff,
+          #7b5cff
+        );
+      box-shadow:
+        0 12px 35px rgba(0,229,255,0.13);
+      transition: 0.25s ease;
+    }
+
+    .auth-submit:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 17px 40px rgba(0,229,255,0.22);
+    }
+
+    .auth-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .auth-message {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .auth-message.show {
+      display: block;
+    }
+
+    .auth-message.error {
+      color: #ffb8c4;
+      background: rgba(255,70,100,0.08);
+      border: 1px solid rgba(255,70,100,0.18);
+    }
+
+    .auth-message.success {
+      color: #a4ffd5;
+      background: rgba(0,255,160,0.07);
+      border: 1px solid rgba(0,255,160,0.16);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 23px 0;
+      color: #68758c;
+      font-size: 11px;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .guest-btn {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.035);
+      color: #d6deeb;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    .guest-btn:hover {
+      border-color: rgba(0,229,255,0.25);
+      background: rgba(0,229,255,0.04);
+    }
+
+    .terms {
+      text-align: center;
+      color: #66738a;
+      font-size: 10px;
+      line-height: 1.6;
+      margin-top: 22px;
+    }
+
+    .terms a {
+      color: #00e5ff;
+      text-decoration: none;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+
+      .auth-container {
+        grid-template-columns: 1fr;
+        max-width: 560px;
+      }
+
+      .auth-showcase {
+        min-height: auto;
+        padding: 35px 30px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .auth-showcase h1 {
+        font-size: 32px;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .auth-box {
+        min-height: auto;
+        padding: 35px 30px;
+      }
+    }
+
+    @media (max-width: 520px) {
+
+      .auth-page {
+        padding: 90px 12px 30px;
+      }
+
+      .auth-container {
+        border-radius: 20px;
+      }
+
+      .auth-showcase {
+        padding: 28px 22px;
+      }
+
+      .auth-box {
+        padding: 28px 20px;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-showcase h1 {
+        font-size: 27px;
+      }
+
+      .auth-heading h2 {
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+
+    <div class="nav-container">
+
+      <a href="index.html" class="logo">
+        SHOPLY
+      </a>
+
+      <nav class="nav-links">
+
+        <a href="index.html">Home</a>
+
+        <a href="index.html#categories">
+          Categories
+        </a>
+
+        <a href="index.html#products">
+          Products
+        </a>
+
+        <a href="orders.html">
+          Orders
+        </a>
+
+        <a href="login.html">
+          Account
+        </a>
+
+        <a href="index.html#cart">
+          Cart
+          <span id="cartCount">0</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- AUTH PAGE -->
+
+  <main class="auth-page">
+
+    <div class="auth-orb one"></div>
+    <div class="auth-orb two"></div>
+
+
+    <div class="auth-container">
+
+      <!-- LEFT -->
+
+      <section class="auth-showcase">
+
+        <div class="showcase-logo">
+          SHOPLY
+        </div>
+
+        <h1>
+          Your Shopping
+          <span>Universe.</span>
+        </h1>
+
+        <p class="showcase-text">
+          Sign in to manage your orders, wishlist,
+          cart and personalized Shoply experience.
+        </p>
+
+        <div class="benefits">
+
+          <div class="benefit">
+            <div class="benefit-icon">🔒</div>
+            <span>Secure account protection</span>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">📦</div>
+            <span>Track all your orders</span>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">❤️</div>
+            <span>Save your favorite products</span>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">⚡</div>
+            <span>Faster checkout experience</span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- RIGHT -->
+
+      <section class="auth-box">
+
+        <div class="auth-heading">
+
+          <h2>
+            Welcome to Shoply
+          </h2>
+
+          <p>
+            Access your account or create a new one.
+          </p>
+
+        </div>
+
+
+        <!-- TABS -->
+
+        <div class="auth-tabs">
+
+          <button
+            type="button"
+            class="auth-tab active"
+            id="loginTab"
+          >
+            Login
+          </button>
+
+          <button
+            type="button"
+            class="auth-tab"
+            id="registerTab"
+          >
+            Create Account
+          </button>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div
+          id="authMessage"
+          class="auth-message"
+        ></div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form
+          id="loginForm"
+          class="auth-form active"
+          autocomplete="on"
+        >
+
+          <div class="form-group">
+
+            <label for="loginEmail">
+              Email Address
+            </label>
+
+            <div class="input-wrap">
+
+              <span class="input-icon">
+                ✉️
+              </span>
+
+              <input
+                type="email"
+                id="loginEmail"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="loginPassword">
+              Password
+            </label>
+
+            <div class="input-wrap">
+
+              <span class="input-icon">
+                🔐
+              </span>
+
+              <input
+                type="password"
+                id="loginPassword"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              >
+
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="loginPassword"
+              >
+                Show
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="auth-options">
+
+            <label class="remember">
+
+              <input
+                type="checkbox"
+                id="rememberMe"
+              >
+
+              Remember me
+
+            </label>
+
+            <a
+              href="#"
+              class="forgot-link"
+              id="forgotPassword"
+            >
+              Forgot password?
+            </a>
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="auth-submit"
+            id="loginBtn"
+          >
+            Login to Shoply
+          </button>
+
+        </form>
+
+
+        <!-- REGISTER FORM -->
+
+        <form
+          id="registerForm"
+          class="auth-form"
+          autocomplete="on"
+        >
+
+          <div class="form-group">
+
+            <label for="registerName">
+              Full Name
+            </label>
+
+            <div class="input-wrap">
+
+              <span class="input-icon">
+                👤
+              </span>
+
+              <input
+                type="text"
+                id="registerName"
+                name="name"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="registerEmail">
+              Email Address
+            </label>
+
+            <div class="input-wrap">
+
+              <span class="input-icon">
+                ✉️
+              </span>
+
+              <input
+                type="email"
+                id="registerEmail"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="registerPhone">
+              Mobile Number
+            </label>
+
+            <div class="input-wrap">
+
+              <span class="input-icon">
+                📱
+              </span>
+
+              <input
+                type="tel"
+                id="registerPhone"
+                name="phone"
+                placeholder="10 digit mobile number"
+                maxlength="10"
+                autocomplete="tel"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="registerPassword">
+              Password
+            </label>
+
+            <div class="input-wrap">
+
+              <span class="input-icon">
+                🔐
+              </span>
+
+              <input
+                type="password"
+                id="registerPassword"
+                name="password"
+                placeholder="Minimum 6 characters"
+                minlength="6"
+                autocomplete="new-password"
+                required
+              >
+
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="registerPassword"
+              >
+                Show
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="confirmPassword">
+              Confirm Password
+            </label>
+
+            <div class="input-wrap">
+
+              <span class="input-icon">
+                ✓
+              </span>
+
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Re-enter your password"
+                minlength="6"
+                autocomplete="new-password"
+                required
+              >
+
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="confirmPassword"
+              >
+                Show
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="auth-submit"
+            id="registerBtn"
+          >
+            Create My Account
+          </button>
+
+        </form>
+
+
+        <div class="auth-divider">
+          OR
+        </div>
+
+
+        <button
+          type="button"
+          class="guest-btn"
+          id="guestBtn"
+        >
+          Continue as Guest
+        </button>
+
+
+        <div class="terms">
+          By continuing, you agree to Shoply's
+          <a href="#">Terms</a>
+          and
+          <a href="#">Privacy Policy</a>.
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- COMMON APP JS -->
+
+  <script src="js/app.js"></script>
+
+  <!-- AUTH JS -->
+
+  <script src="js/auth.js"></script>
+
+
+  <!-- LOGIN PAGE UI -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+        /* ============================
+           CART COUNT
+        ============================ */
+
+        const cartCount =
+          document.getElementById("cartCount");
+
+        try {
+
+          const cart =
+            JSON.parse(
+              localStorage.getItem("shoplyCart")
+            ) || [];
+
+          if (cartCount) {
+
+            cartCount.textContent =
+              cart.reduce(
+                (total, item) =>
+                  total +
+                  Number(item.quantity || 1),
+                0
+              );
+
+          }
+
+        } catch (error) {
+
+          if (cartCount) {
+            cartCount.textContent = "0";
+          }
+
+        }
+
+
+        /* ============================
+           TABS
+        ============================ */
+
+        const loginTab =
+          document.getElementById("loginTab");
+
+        const registerTab =
+          document.getElementById("registerTab");
+
+        const loginForm =
+          document.getElementById("loginForm");
+
+        const registerForm =
+          document.getElementById("registerForm");
+
+
+        function showLogin() {
+
+          loginTab?.classList.add("active");
+          registerTab?.classList.remove("active");
+
+          loginForm?.classList.add("active");
+          registerForm?.classList.remove("active");
+
+          clearMessage();
+        }
+
+
+        function showRegister() {
+
+          registerTab?.classList.add("active");
+          loginTab?.classList.remove("active");
+
+          registerForm?.classList.add("active");
+          loginForm?.classList.remove("active");
+
+          clearMessage();
+        }
+
+
+        loginTab?.addEventListener(
+          "click",
+          showLogin
+        );
+
+        registerTab?.addEventListener(
+          "click",
+          showRegister
+        );
+
+
+        /* ============================
+           PASSWORD SHOW/HIDE
+        ============================ */
+
+        document
+          .querySelectorAll(".password-toggle")
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              function () {
+
+                const targetId =
+                  this.dataset.target;
+
+                const input =
+                  document.getElementById(
+                    targetId
+                  );
+
+                if (!input) return;
+
+                if (
+                  input.type === "password"
+                ) {
+
+                  input.type = "text";
+                  this.textContent = "Hide";
+
+                } else {
+
+                  input.type = "password";
+                  this.textContent = "Show";
+
+                }
+
+              }
+            );
+
+          });
+
+
+        /* ============================
+           PHONE INPUT
+        ============================ */
+
+        const registerPhone =
+          document.getElementById(
+            "registerPhone"
+          );
+
+        registerPhone?.addEventListener(
+          "input",
+          function () {
+
+            this.value =
+              this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+          }
+        );
+
+
+        /* ============================
+           MESSAGE
+        ============================ */
+
+        function clearMessage() {
+
+          const message =
+            document.getElementById(
+              "authMessage"
+            );
+
+          if (!message) return;
+
+          message.textContent = "";
+          message.className =
+            "auth-message";
+
+        }
+
+
+        /* ============================
+           FORGOT PASSWORD
+        ============================ */
+
+        document
+          .getElementById("forgotPassword")
+          ?.addEventListener(
+            "click",
+            function (event) {
+
+              event.preventDefault();
+
+              showMessage(
+                "Password reset will be connected with the backend authentication system.",
+                "success"
+              );
+
+            }
+          );
+
+
+        /* ============================
+           GUEST
+        ============================ */
+
+        document
+          .getElementById("guestBtn")
+          ?.addEventListener(
+            "click",
+            function () {
+
+              window.location.href =
+                "index.html";
+
+            }
+          );
+
+
+        /* ============================
+           REGISTER PASSWORD CHECK
+        ============================ */
+
+        registerForm?.addEventListener(
+          "submit",
+          function (event) {
+
+            const password =
+              document.getElementById(
+                "registerPassword"
+              )?.value || "";
+
+            const confirmPassword =
+              document.getElementById(
+                "confirmPassword"
+              )?.value || "";
+
+            if (
+              password !== confirmPassword
+            ) {
+
+              event.preventDefault();
+
+              showMessage(
+                "Passwords do not match.",
+                "error"
+              );
+
+            }
+
+          }
+        );
+
+
+        /* ============================
+           AUTH MESSAGE HELPER
+        ============================ */
+
+        function showMessage(
+          text,
+          type = "error"
+        ) {
+
+          const message =
+            document.getElementById(
+              "authMessage"
+            );
+
+          if (!message) return;
+
+          message.textContent = text;
+
+          message.className =
+            "auth-message show " +
+            type;
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Shoply Admin — Settings</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="admin-sidebar">
+
+    <div class="admin-brand">
+      <div class="admin-brand-logo">S</div>
+
+      <div>
+        <strong>SHOPLY</strong>
+        <span>ADMIN PANEL</span>
+      </div>
+    </div>
+
+    <nav class="admin-nav">
+
+      <a href="index.html">
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+      <a href="admin.html">
+        <span>▣</span>
+        Products
+      </a>
+
+      <a href="categories.html">
+        <span>◈</span>
+        Categories
+      </a>
+
+      <a href="order.html">
+        <span>🛒</span>
+        Orders
+      </a>
+
+      <a href="customer.html">
+        <span>♙</span>
+        Customers
+      </a>
+
+      <a href="coupons.html">
+        <span>%</span>
+        Coupons
+      </a>
+
+      <a href="setting.html" class="active">
+        <span>⚙</span>
+        Settings
+      </a>
+
+    </nav>
+
+    <div class="admin-sidebar-bottom">
+
+      <a href="../index.html" target="_blank">
+        <span>↗</span>
+        View Store
+      </a>
+
+      <button type="button" id="logoutBtn">
+        <span>⇥</span>
+        Logout
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="admin-main">
+
+    <!-- TOP BAR -->
+
+    <header class="admin-topbar">
+
+      <div>
+        <div class="admin-page-kicker">
+          SHOPLY CONTROL CENTER
+        </div>
+
+        <h1>Settings</h1>
+
+        <p>
+          Configure your store and admin preferences.
+        </p>
+      </div>
+
+    </header>
+
+
+    <!-- ================= SETTINGS GRID ================= -->
+
+    <div class="settings-layout">
+
+
+      <!-- ================= STORE SETTINGS ================= -->
+
+      <section class="admin-panel settings-panel">
+
+        <div class="admin-panel-head">
+
+          <div>
+            <h2>Store Information</h2>
+
+            <p>
+              Basic information displayed across your store.
+            </p>
+          </div>
+
+        </div>
+
+
+        <form id="storeSettingsForm">
+
+          <div class="admin-form-grid">
+
+            <div class="admin-field">
+
+              <label for="storeName">
+                Store Name
+              </label>
+
+              <input
+                type="text"
+                id="storeName"
+                placeholder="Shoply"
+              >
+
+            </div>
+
+
+            <div class="admin-field">
+
+              <label for="storeTagline">
+                Store Tagline
+              </label>
+
+              <input
+                type="text"
+                id="storeTagline"
+                placeholder="Your premium online store"
+              >
+
+            </div>
+
+
+            <div class="admin-field">
+
+              <label for="storeEmail">
+                Store Email
+              </label>
+
+              <input
+                type="email"
+                id="storeEmail"
+                placeholder="support@example.com"
+              >
+
+            </div>
+
+
+            <div class="admin-field">
+
+              <label for="storePhone">
+                Store Phone
+              </label>
+
+              <input
+                type="tel"
+                id="storePhone"
+                placeholder="+91 00000 00000"
+              >
+
+            </div>
+
+
+            <div class="admin-field full">
+
+              <label for="storeAddress">
+                Store Address
+              </label>
+
+              <textarea
+                id="storeAddress"
+                rows="3"
+                placeholder="Enter your store address"
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-actions">
+
+            <button
+              type="submit"
+              class="admin-btn primary"
+            >
+              Save Store Settings
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- ================= DELIVERY SETTINGS ================= -->
+
+      <section class="admin-panel settings-panel">
+
+        <div class="admin-panel-head">
+
+          <div>
+            <h2>Delivery Settings</h2>
+
+            <p>
+              Configure delivery charges and free delivery limit.
+            </p>
+          </div>
+
+        </div>
+
+
+        <form id="deliverySettingsForm">
+
+          <div class="admin-form-grid">
+
+            <div class="admin-field">
+
+              <label for="deliveryCharge">
+                Standard Delivery Charge
+              </label>
+
+              <input
+                type="number"
+                id="deliveryCharge"
+                min="0"
+                value="49"
+              >
+
+            </div>
+
+
+            <div class="admin-field">
+
+              <label for="freeDelivery">
+                Free Delivery Above
+              </label>
+
+              <input
+                type="number"
+                id="freeDelivery"
+                min="0"
+                value="999"
+              >
+
+            </div>
+
+
+            <div class="admin-field">
+
+              <label for="codCharge">
+                COD Additional Charge
+              </label>
+
+              <input
+                type="number"
+                id="codCharge"
+                min="0"
+                value="700"
+              >
+
+            </div>
+
+
+            <div class="admin-field">
+
+              <label for="deliveryDays">
+                Delivery Time
+              </label>
+
+              <select id="deliveryDays">
+
+                <option value="1-3">
+                  1–3 Days
+                </option>
+
+                <option value="2-5" selected>
+                  Up to 5 Days
+                </option>
+
+                <option value="3-7">
+                  3–7 Days
+                </option>
+
+                <option value="5-10">
+                  5–10 Days
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-actions">
+
+            <button
+              type="submit"
+              class="admin-btn primary"
+            >
+              Save Delivery Settings
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- ================= PAYMENT SETTINGS ================= -->
+
+      <section class="admin-panel settings-panel">
+
+        <div class="admin-panel-head">
+
+          <div>
+            <h2>Payment Settings</h2>
+
+            <p>
+              Enable or disable available payment methods.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="settings-toggle-list">
+
+
+          <div class="settings-toggle-item">
+
+            <div>
+
+              <strong>
+                Online Payment
+              </strong>
+
+              <span>
+                Allow customers to pay online.
+              </span>
+
+            </div>
+
+            <label class="toggle">
+
+              <input
+                type="checkbox"
+                id="onlinePayment"
+                checked
+              >
+
+              <span class="toggle-slider"></span>
+
+            </label>
+
+          </div>
+
+
+          <div class="settings-toggle-item">
+
+            <div>
+
+              <strong>
+                Cash on Delivery
+              </strong>
+
+              <span>
+                Allow COD orders after required online charge.
+              </span>
+
+            </div>
+
+            <label class="toggle">
+
+              <input
+                type="checkbox"
+                id="codPayment"
+                checked
+              >
+
+              <span class="toggle-slider"></span>
+
+            </label>
+
+          </div>
+
+
+          <div class="settings-toggle-item">
+
+            <div>
+
+              <strong>
+                UPI
+              </strong>
+
+              <span>
+                Accept UPI-based online payments.
+              </span>
+
+            </div>
+
+            <label class="toggle">
+
+              <input
+                type="checkbox"
+                id="upiPayment"
+                checked
+              >
+
+              <span class="toggle-slider"></span>
+
+            </label>
+
+          </div>
+
+
+          <div class="settings-toggle-item">
+
+            <div>
+
+              <strong>
+                Payment Verification
+              </strong>
+
+              <span>
+                Require server-side verification before order confirmation.
+              </span>
+
+            </div>
+
+            <label class="toggle">
+
+              <input
+                type="checkbox"
+                id="paymentVerification"
+                checked
+              >
+
+              <span class="toggle-slider"></span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <div class="settings-actions">
+
+          <button
+            type="button"
+            class="admin-btn primary"
+            id="savePaymentSettings"
+          >
+            Save Payment Settings
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= STORE STATUS ================= -->
+
+      <section class="admin-panel settings-panel">
+
+        <div class="admin-panel-head">
+
+          <div>
+
+            <h2>Store Status</h2>
+
+            <p>
+              Control whether customers can place orders.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="settings-toggle-list">
+
+
+          <div class="settings-toggle-item">
+
+            <div>
+
+              <strong>
+                Store Online
+              </strong>
+
+              <span>
+                Customers can browse and place orders.
+              </span>
+
+            </div>
+
+            <label class="toggle">
+
+              <input
+                type="checkbox"
+                id="storeOnline"
+                checked
+              >
+
+              <span class="toggle-slider"></span>
+
+            </label>
+
+          </div>
+
+
+          <div class="settings-toggle-item">
+
+            <div>
+
+              <strong>
+                New Orders
+              </strong>
+
+              <span>
+                Allow customers to submit new orders.
+              </span>
+
+            </div>
+
+            <label class="toggle">
+
+              <input
+                type="checkbox"
+                id="newOrders"
+                checked
+              >
+
+              <span class="toggle-slider"></span>
+
+            </label>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="settings-actions">
+
+          <button
+            type="button"
+            class="admin-btn primary"
+            id="saveStoreStatus"
+          >
+            Save Store Status
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= WHATSAPP ================= -->
+
+      <section class="admin-panel settings-panel">
+
+        <div class="admin-panel-head">
+
+          <div>
+
+            <h2>WhatsApp & Support</h2>
+
+            <p>
+              Configure your customer support contact.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <form id="supportSettingsForm">
+
+          <div class="admin-form-grid">
+
+            <div class="admin-field">
+
+              <label for="whatsappNumber">
+                WhatsApp Number
+              </label>
+
+              <input
+                type="tel"
+                id="whatsappNumber"
+                placeholder="919999999999"
+              >
+
+            </div>
+
+
+            <div class="admin-field">
+
+              <label for="supportEmail">
+                Support Email
+              </label>
+
+              <input
+                type="email"
+                id="supportEmail"
+                placeholder="support@shoply.com"
+              >
+
+            </div>
+
+
+            <div class="admin-field full">
+
+              <label for="whatsappMessage">
+                Default WhatsApp Message
+              </label>
+
+              <textarea
+                id="whatsappMessage"
+                rows="3"
+                placeholder="Hello Shoply, I need help with my order."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-actions">
+
+            <button
+              type="submit"
+              class="admin-btn primary"
+            >
+              Save Support Settings
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- ================= ADMIN SECURITY ================= -->
+
+      <section class="admin-panel settings-panel">
+
+        <div class="admin-panel-head">
+
+          <div>
+
+            <h2>Admin Security</h2>
+
+            <p>
+              Manage basic admin security preferences.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="security-info">
+
+          <div class="security-row">
+
+            <span>
+              Authentication
+            </span>
+
+            <strong>
+              JWT Protected
+            </strong>
+
+          </div>
+
+
+          <div class="security-row">
+
+            <span>
+              Session Token
+            </span>
+
+            <strong id="tokenStatus">
+              Checking...
+            </strong>
+
+          </div>
+
+
+          <div class="security-row">
+
+            <span>
+              Admin Access
+            </span>
+
+            <strong id="adminStatus">
+              Checking...
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="settings-actions">
+
+          <button
+            type="button"
+            class="admin-btn secondary"
+            id="logoutSecurity"
+          >
+            Logout All Sessions
+          </button>
+
+        </div>
+
+      </section>
+
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div
+      class="admin-toast"
+      id="adminToast"
+    >
+
+      <span id="adminToastText">
+        Settings saved
+      </span>
+
+    </div>
+
+  </main>
+
+
+  <!-- ================= SCRIPT ================= -->
+
+  <script src="../js/app.js"></script>
+  <script src="../js/admin.js"></script>
+
+
+  <script>
+
+    /* ================= STORAGE ================= */
+
+    const SETTINGS_KEY =
+      "shoplySettings";
+
+
+    function getSettings() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem(
+            SETTINGS_KEY
+          )
+        ) || {};
+
+      } catch {
+
+        return {};
+
+      }
+
+    }
+
+
+    function saveSettings(settings) {
+
+      localStorage.setItem(
+        SETTINGS_KEY,
+        JSON.stringify(settings)
+      );
+
+    }
+
+
+    /* ================= TOAST ================= */
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById(
+          "adminToast"
+        );
+
+      const text =
+        document.getElementById(
+          "adminToastText"
+        );
+
+      text.textContent =
+        message;
+
+      toast.classList.add(
+        "show"
+      );
+
+      setTimeout(() => {
+
+        toast.classList.remove(
+          "show"
+        );
+
+      }, 2500);
+
+    }
+
+
+    /* ================= INPUT HELPERS ================= */
+
+    function setValue(id, value) {
+
+      const element =
+        document.getElementById(id);
+
+      if (
+        element &&
+        value !== undefined
+      ) {
+
+        element.value =
+          value;
+
+      }
+
+    }
+
+
+    function setChecked(id, value) {
+
+      const element =
+        document.getElementById(id);
+
+      if (
+        element &&
+        value !== undefined
+      ) {
+
+        element.checked =
+          Boolean(value);
+
+      }
+
+    }
+
+
+    /* ================= LOAD SETTINGS ================= */
+
+    function loadSettings() {
+
+      const settings =
+        getSettings();
+
+
+      /* Store */
+
+      setValue(
+        "storeName",
+        settings.storeName ||
+        "Shoply"
+      );
+
+
+      setValue(
+        "storeTagline",
+        settings.storeTagline ||
+        "Your premium online store"
+      );
+
+
+      setValue(
+        "storeEmail",
+        settings.storeEmail ||
+        ""
+      );
+
+
+      setValue(
+        "storePhone",
+        settings.storePhone ||
+        ""
+      );
+
+
+      setValue(
+        "storeAddress",
+        settings.storeAddress ||
+        ""
+      );
+
+
+      /* Delivery */
+
+      setValue(
+        "deliveryCharge",
+        settings.deliveryCharge ??
+        49
+      );
+
+
+      setValue(
+        "freeDelivery",
+        settings.freeDelivery ??
+        999
+      );
+
+
+      setValue(
+        "codCharge",
+        settings.codCharge ??
+        700
+      );
+
+
+      setValue(
+        "deliveryDays",
+        settings.deliveryDays ||
+        "2-5"
+      );
+
+
+      /* Payment */
+
+      setChecked(
+        "onlinePayment",
+        settings.onlinePayment ??
+        true
+      );
+
+
+      setChecked(
+        "codPayment",
+        settings.codPayment ??
+        true
+      );
+
+
+      setChecked(
+        "upiPayment",
+        settings.upiPayment ??
+        true
+      );
+
+
+      setChecked(
+        "paymentVerification",
+        settings.paymentVerification ??
+        true
+      );
+
+
+      /* Store status */
+
+      setChecked(
+        "storeOnline",
+        settings.storeOnline ??
+        true
+      );
+
+
+      setChecked(
+        "newOrders",
+        settings.newOrders ??
+        true
+      );
+
+
+      /* Support */
+
+      setValue(
+        "whatsappNumber",
+        settings.whatsappNumber ||
+        ""
+      );
+
+
+      setValue(
+        "supportEmail",
+        settings.supportEmail ||
+        ""
+      );
+
+
+      setValue(
+        "whatsappMessage",
+        settings.whatsappMessage ||
+        "Hello Shoply, I need help with my order."
+      );
+
+
+      updateSecurityStatus();
+
+    }
+
+
+    /* ================= STORE FORM ================= */
+
+    document
+      .getElementById(
+        "storeSettingsForm"
+      )
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+
+          const settings =
+            getSettings();
+
+
+          settings.storeName =
+            document.getElementById(
+              "storeName"
+            ).value.trim();
+
+
+          settings.storeTagline =
+            document.getElementById(
+              "storeTagline"
+            ).value.trim();
+
+
+          settings.storeEmail =
+            document.getElementById(
+              "storeEmail"
+            ).value.trim();
+
+
+          settings.storePhone =
+            document.getElementById(
+              "storePhone"
+            ).value.trim();
+
+
+          settings.storeAddress =
+            document.getElementById(
+              "storeAddress"
+            ).value.trim();
+
+
+          saveSettings(
+            settings
+          );
+
+
+          showToast(
+            "Store settings saved"
+          );
+
+        }
+      );
+
+
+    /* ================= DELIVERY ================= */
+
+    document
+      .getElementById(
+        "deliverySettingsForm"
+      )
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+
+          const settings =
+            getSettings();
+
+
+          settings.deliveryCharge =
+            Number(
+              document.getElementById(
+                "deliveryCharge"
+              ).value || 0
+            );
+
+
+          settings.freeDelivery =
+            Number(
+              document.getElementById(
+                "freeDelivery"
+              ).value || 0
+            );
+
+
+          settings.codCharge =
+            Number(
+              document.getElementById(
+                "codCharge"
+              ).value || 0
+            );
+
+
+          settings.deliveryDays =
+            document.getElementById(
+              "deliveryDays"
+            ).value;
+
+
+          saveSettings(
+            settings
+          );
+
+
+          showToast(
+            "Delivery settings saved"
+          );
+
+        }
+      );
+
+
+    /* ================= PAYMENT ================= */
+
+    document
+      .getElementById(
+        "savePaymentSettings"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          const settings =
+            getSettings();
+
+
+          settings.onlinePayment =
+            document.getElementById(
+              "onlinePayment"
+            ).checked;
+
+
+          settings.codPayment =
+            document.getElementById(
+              "codPayment"
+            ).checked;
+
+
+          settings.upiPayment =
+            document.getElementById(
+              "upiPayment"
+            ).checked;
+
+
+          settings.paymentVerification =
+            document.getElementById(
+              "paymentVerification"
+            ).checked;
+
+
+          saveSettings(
+            settings
+          );
+
+
+          showToast(
+            "Payment settings saved"
+          );
+
+        }
+      );
+
+
+    /* ================= STORE STATUS ================= */
+
+    document
+      .getElementById(
+        "saveStoreStatus"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          const settings =
+            getSettings();
+
+
+          settings.storeOnline =
+            document.getElementById(
+              "storeOnline"
+            ).checked;
+
+
+          settings.newOrders =
+            document.getElementById(
+              "newOrders"
+            ).checked;
+
+
+          saveSettings(
+            settings
+          );
+
+
+          showToast(
+            "Store status saved"
+          );
+
+        }
+      );
+
+
+    /* ================= SUPPORT ================= */
+
+    document
+      .getElementById(
+        "supportSettingsForm"
+      )
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+
+          const settings =
+            getSettings();
+
+
+          settings.whatsappNumber =
+            document.getElementById(
+              "whatsappNumber"
+            ).value.trim();
+
+
+          settings.supportEmail =
+            document.getElementById(
+              "supportEmail"
+            ).value.trim();
+
+
+          settings.whatsappMessage =
+            document.getElementById(
+              "whatsappMessage"
+            ).value.trim();
+
+
+          saveSettings(
+            settings
+          );
+
+
+          showToast(
+            "Support settings saved"
+          );
+
+        }
+      );
+
+
+    /* ================= SECURITY ================= */
+
+    function updateSecurityStatus() {
+
+      const token =
+        localStorage.getItem(
+          "shoplyToken"
+        );
+
+
+      const user =
+        localStorage.getItem(
+          "shoplyUser"
+        );
+
+
+      document.getElementById(
+        "tokenStatus"
+      ).textContent =
+        token
+          ? "Active"
+          : "Not Found";
+
+
+      document.getElementById(
+        "adminStatus"
+      ).textContent =
+        user
+          ? "Authenticated"
+          : "Guest";
+
+    }
+
+
+    /* ================= LOGOUT ================= */
+
+    function logout() {
+
+      localStorage.removeItem(
+        "shoplyToken"
+      );
+
+      localStorage.removeItem(
+        "shoplyUser"
+      );
+
+      sessionStorage.removeItem(
+        "shoplyToken"
+      );
+
+      sessionStorage.removeItem(
+        "shoplyUser"
+      );
+
+
+      window.location.href =
+        "../login.html";
+
+    }
+
+
+    document
+      .getElementById(
+        "logoutBtn"
+      )
+      .addEventListener(
+        "click",
+        logout
+      );
+
+
+    document
+      .getElementById(
+        "logoutSecurity"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          if (
+            confirm(
+              "Logout from this admin session?"
+            )
+          ) {
+
+            logout();
+
+          }
+
+        }
+      );
+
+
+    /* ================= INIT ================= */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function() {
+
+        loadSettings();
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>

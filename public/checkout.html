@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Checkout | Shoply</title>
+  <meta name="description" content="Complete your Shoply order securely.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .checkout-page {
+      min-height: 100vh;
+      padding: 130px 20px 70px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .checkout-page::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: rgba(0, 229, 255, 0.08);
+      filter: blur(100px);
+      border-radius: 50%;
+      top: 80px;
+      left: -200px;
+      pointer-events: none;
+    }
+
+    .checkout-page::after {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      background: rgba(123, 92, 255, 0.08);
+      filter: blur(100px);
+      border-radius: 50%;
+      right: -180px;
+      bottom: 0;
+      pointer-events: none;
+    }
+
+    .checkout-container {
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .checkout-heading {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .checkout-heading .mini-title {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #00e5ff;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .checkout-heading h1 {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(28px, 5vw, 52px);
+      margin: 0;
+      color: #fff;
+    }
+
+    .checkout-heading h1 span {
+      background: linear-gradient(
+        90deg,
+        #00e5ff,
+        #7b5cff,
+        #ff4fd8
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .checkout-card {
+      background: rgba(10, 15, 30, 0.78);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+      padding: 28px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .checkout-card h2 {
+      margin: 0 0 24px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .checkout-card h2 span {
+      color: #00e5ff;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #c9d2e3;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      outline: none;
+      background: rgba(255,255,255,0.045);
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      transition: 0.25s ease;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-group select option {
+      background: #101525;
+      color: #fff;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: #00e5ff;
+      box-shadow: 0 0 0 3px rgba(0,229,255,0.08);
+    }
+
+    .payment-options {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .payment-option {
+      position: relative;
+    }
+
+    .payment-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .payment-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 17px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.035);
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .payment-label:hover {
+      border-color: rgba(0,229,255,0.35);
+      transform: translateY(-1px);
+    }
+
+    .payment-option input:checked + .payment-label {
+      border-color: #00e5ff;
+      background: rgba(0,229,255,0.07);
+      box-shadow: 0 0 25px rgba(0,229,255,0.08);
+    }
+
+    .payment-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(
+        135deg,
+        rgba(0,229,255,0.16),
+        rgba(123,92,255,0.16)
+      );
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .payment-text strong {
+      display: block;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .payment-text small {
+      color: #8e9ab1;
+      font-size: 12px;
+    }
+
+    .cod-note {
+      display: none;
+      margin-top: 12px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: rgba(255, 176, 0, 0.08);
+      border: 1px solid rgba(255, 176, 0, 0.18);
+      color: #ffd978;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .cod-note.show {
+      display: block;
+    }
+
+    .order-items {
+      display: grid;
+      gap: 14px;
+      max-height: 390px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .order-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 12px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .order-item-image {
+      width: 65px;
+      height: 65px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    .order-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .order-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .order-item-info h3 {
+      margin: 0 0 5px;
+      color: #fff;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-item-info p {
+      margin: 0;
+      color: #8e9ab1;
+      font-size: 12px;
+    }
+
+    .order-item-price {
+      color: #00e5ff;
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .summary-lines {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 13px;
+      color: #aeb8ca;
+      font-size: 14px;
+    }
+
+    .summary-row strong {
+      color: #fff;
+    }
+
+    .summary-row.total {
+      margin-top: 18px;
+      padding-top: 17px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .summary-row.total strong {
+      color: #00e5ff;
+      font-size: 22px;
+    }
+
+    .place-order-btn {
+      width: 100%;
+      border: none;
+      margin-top: 22px;
+      padding: 16px 20px;
+      border-radius: 14px;
+      cursor: pointer;
+      color: #061018;
+      background: linear-gradient(
+        90deg,
+        #00e5ff,
+        #7b5cff
+      );
+      font-size: 15px;
+      font-weight: 800;
+      transition: 0.25s ease;
+      box-shadow: 0 10px 35px rgba(0,229,255,0.18);
+    }
+
+    .place-order-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0,229,255,0.28);
+    }
+
+    .secure-note {
+      text-align: center;
+      margin-top: 14px;
+      color: #78849b;
+      font-size: 11px;
+    }
+
+    .empty-checkout {
+      text-align: center;
+      padding: 45px 20px;
+      color: #8995ab;
+    }
+
+    .empty-checkout .empty-icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .empty-checkout h3 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .empty-checkout a {
+      display: inline-block;
+      margin-top: 18px;
+      text-decoration: none;
+      color: #061018;
+      background: #00e5ff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .checkout-message {
+      display: none;
+      margin-bottom: 20px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .checkout-message.show {
+      display: block;
+    }
+
+    .checkout-message.error {
+      color: #ffb8c4;
+      background: rgba(255,70,100,0.08);
+      border: 1px solid rgba(255,70,100,0.2);
+    }
+
+    .checkout-message.success {
+      color: #9dffd1;
+      background: rgba(0,255,160,0.07);
+      border: 1px solid rgba(0,255,160,0.18);
+    }
+
+    @media (max-width: 850px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .checkout-page {
+        padding: 105px 13px 45px;
+      }
+
+      .checkout-card {
+        padding: 20px 16px;
+        border-radius: 17px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .checkout-heading {
+        margin-bottom: 28px;
+      }
+
+      .checkout-heading h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+
+      <a href="index.html" class="logo">
+        SHOPLY
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="index.html#products">Products</a>
+        <a href="orders.html">Orders</a>
+        <a href="login.html">Account</a>
+        <a href="index.html#cart">
+          Cart <span id="cartCount">0</span>
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- CHECKOUT -->
+  <main class="checkout-page">
+
+    <div class="checkout-container">
+
+      <div class="checkout-heading">
+        <span class="mini-title">Secure Checkout</span>
+        <h1>Complete Your <span>Order</span></h1>
+      </div>
+
+      <div id="checkoutMessage" class="checkout-message"></div>
+
+      <div id="checkoutContent">
+
+        <div class="checkout-grid">
+
+          <!-- CUSTOMER DETAILS -->
+          <section class="checkout-card">
+
+            <h2>Delivery <span>Details</span></h2>
+
+            <form id="checkoutForm">
+
+              <div class="form-grid">
+
+                <div class="form-group">
+                  <label for="name">Full Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Mobile Number</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="10 digit mobile number"
+                    maxlength="10"
+                    required
+                  >
+                </div>
+
+                <div class="form-group full">
+                  <label for="address">Complete Address</label>
+                  <textarea
+                    id="address"
+                    name="address"
+                    placeholder="House no, street, area..."
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    placeholder="Enter city"
+                    required
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <input
+                    type="text"
+                    id="state"
+                    name="state"
+                    placeholder="Enter state"
+                    required
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="pincode">PIN Code</label>
+                  <input
+                    type="text"
+                    id="pincode"
+                    name="pincode"
+                    placeholder="6 digit PIN"
+                    maxlength="6"
+                    required
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="landmark">Landmark</label>
+                  <input
+                    type="text"
+                    id="landmark"
+                    name="landmark"
+                    placeholder="Optional"
+                  >
+                </div>
+
+              </div>
+
+
+              <!-- PAYMENT -->
+              <h2 style="margin-top: 25px;">
+                Payment <span>Method</span>
+              </h2>
+
+              <div class="payment-options">
+
+                <div class="payment-option">
+
+                  <input
+                    type="radio"
+                    id="onlinePayment"
+                    name="paymentMethod"
+                    value="online"
+                    checked
+                  >
+
+                  <label
+                    class="payment-label"
+                    for="onlinePayment"
+                  >
+
+                    <div class="payment-icon">💳</div>
+
+                    <div class="payment-text">
+                      <strong>Online Payment</strong>
+                      <small>Pay securely online</small>
+                    </div>
+
+                  </label>
+
+                </div>
+
+
+                <div class="payment-option">
+
+                  <input
+                    type="radio"
+                    id="codPayment"
+                    name="paymentMethod"
+                    value="cod"
+                  >
+
+                  <label
+                    class="payment-label"
+                    for="codPayment"
+                  >
+
+                    <div class="payment-icon">📦</div>
+
+                    <div class="payment-text">
+                      <strong>Cash on Delivery</strong>
+                      <small>₹700 delivery charge paid online first</small>
+                    </div>
+
+                  </label>
+
+                </div>
+
+              </div>
+
+              <div id="codNote" class="cod-note">
+                COD orders require a <strong>₹700 delivery charge</strong>
+                to be paid online first. The order will only be submitted
+                after the payment is verified by the server.
+              </div>
+
+              <div class="form-group" style="margin-top:20px;">
+                <label for="coupon">Coupon Code</label>
+
+                <div style="display:flex;gap:10px;">
+
+                  <input
+                    type="text"
+                    id="coupon"
+                    name="coupon"
+                    placeholder="Enter coupon code"
+                  >
+
+                  <button
+                    type="button"
+                    id="applyCoupon"
+                    class="place-order-btn"
+                    style="width:auto;margin:0;padding:12px 18px;"
+                  >
+                    Apply
+                  </button>
+
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="place-order-btn"
+                id="placeOrderBtn"
+              >
+                Place Order
+              </button>
+
+              <div class="secure-note">
+                🔒 Your order information is securely processed.
+              </div>
+
+            </form>
+
+          </section>
+
+
+          <!-- ORDER SUMMARY -->
+          <aside class="checkout-card">
+
+            <h2>Your <span>Order</span></h2>
+
+            <div id="orderItems" class="order-items"></div>
+
+            <div class="summary-lines">
+
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="subtotal">₹0</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Delivery</span>
+                <strong id="deliveryCharge">₹0</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Discount</span>
+                <strong id="discount">₹0</strong>
+              </div>
+
+              <div
+                class="summary-row"
+                id="codDeliveryRow"
+                style="display:none;"
+              >
+                <span>COD Delivery Charge</span>
+                <strong>₹700</strong>
+              </div>
+
+              <div class="summary-row total">
+                <span>Total</span>
+                <strong id="totalAmount">₹0</strong>
+              </div>
+
+            </div>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script src="js/app.js"></script>
+  <script src="js/checkout.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const cartCount = document.getElementById("cartCount");
+
+      let cart = [];
+
+      try {
+        cart = JSON.parse(localStorage.getItem("shoplyCart")) || [];
+      } catch (error) {
+        cart = [];
+      }
+
+      if (cartCount) {
+        cartCount.textContent = cart.reduce(
+          (total, item) => total + Number(item.quantity || 1),
+          0
+        );
+      }
+
+
+      const onlinePayment =
+        document.getElementById("onlinePayment");
+
+      const codPayment =
+        document.getElementById("codPayment");
+
+      const codNote =
+        document.getElementById("codNote");
+
+      const codDeliveryRow =
+        document.getElementById("codDeliveryRow");
+
+      function updatePaymentUI() {
+
+        if (codPayment && codPayment.checked) {
+
+          if (codNote) {
+            codNote.classList.add("show");
+          }
+
+          if (codDeliveryRow) {
+            codDeliveryRow.style.display = "flex";
+          }
+
+        } else {
+
+          if (codNote) {
+            codNote.classList.remove("show");
+          }
+
+          if (codDeliveryRow) {
+            codDeliveryRow.style.display = "none";
+          }
+
+        }
+
+      }
+
+      if (onlinePayment) {
+        onlinePayment.addEventListener(
+          "change",
+          updatePaymentUI
+        );
+      }
+
+      if (codPayment) {
+        codPayment.addEventListener(
+          "change",
+          updatePaymentUI
+        );
+      }
+
+      updatePaymentUI();
+
+
+      /* PHONE VALIDATION */
+
+      const phoneInput =
+        document.getElementById("phone");
+
+      if (phoneInput) {
+
+        phoneInput.addEventListener("input", function () {
+
+          this.value = this.value
+            .replace(/\D/g, "")
+            .slice(0, 10);
+
+        });
+
+      }
+
+
+      /* PIN CODE VALIDATION */
+
+      const pinInput =
+        document.getElementById("pincode");
+
+      if (pinInput) {
+
+        pinInput.addEventListener("input", function () {
+
+          this.value = this.value
+            .replace(/\D/g, "")
+            .slice(0, 6);
+
+        });
+
+      }
+
+    });
+  </script>
+
+</body>
+</html>

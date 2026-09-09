@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Shoply Admin Product Management"
+  >
+
+  <title>Shoply — Product Management</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       TOPBAR
+  ====================================================== -->
+
+  <header class="admin-topbar">
+
+    <div class="admin-brand">
+      <a href="index.html">
+        SHOP<span>LY</span>
+      </a>
+      <small>ADMIN PANEL</small>
+    </div>
+
+    <div class="admin-top-actions">
+
+      <a
+        href="../index.html"
+        class="admin-nav-btn"
+      >
+        🛍 Store
+      </a>
+
+      <button
+        type="button"
+        class="admin-nav-btn"
+        data-admin-logout
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       LAYOUT
+  ====================================================== -->
+
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="admin-sidebar">
+
+      <div class="admin-sidebar-title">
+        CONTROL CENTER
+      </div>
+
+      <nav class="admin-menu">
+
+        <a href="index.html">
+          <span>▦</span>
+          Dashboard
+        </a>
+
+        <a
+          href="admin.html"
+          class="active"
+        >
+          <span>◈</span>
+          Products
+        </a>
+
+        <a href="categories.html">
+          <span>◇</span>
+          Categories
+        </a>
+
+        <a href="order.html">
+          <span>◉</span>
+          Orders
+        </a>
+
+        <a href="customer.html">
+          <span>♙</span>
+          Customers
+        </a>
+
+        <a href="coupons.html">
+          <span>%</span>
+          Coupons
+        </a>
+
+        <a href="setting.html">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- ===================================================
+         MAIN
+    ==================================================== -->
+
+    <main class="admin-main">
+
+      <!-- HEADER -->
+
+      <section class="admin-page-header">
+
+        <div>
+
+          <div class="admin-eyebrow">
+            INVENTORY CONTROL
+          </div>
+
+          <h1>
+            Products
+          </h1>
+
+          <p>
+            Add, search, update and manage
+            everything available in your Shoply store.
+          </p>
+
+        </div>
+
+        <a
+          href="product.html"
+          class="admin-primary-btn"
+        >
+          + Add Product
+        </a>
+
+      </section>
+
+
+      <!-- =================================================
+           SEARCH BAR
+      ================================================== -->
+
+      <section class="admin-toolbar">
+
+        <div class="admin-search">
+
+          <span>
+            🔎
+          </span>
+
+          <input
+            type="search"
+            id="productSearch"
+            placeholder="Search products, category or SKU..."
+            autocomplete="off"
+          >
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-secondary-btn"
+          id="refreshProducts"
+        >
+          ↻ Refresh
+        </button>
+
+      </section>
+
+
+      <!-- =================================================
+           PRODUCT TABLE
+      ================================================== -->
+
+      <section class="admin-panel">
+
+        <div class="admin-panel-header">
+
+          <div>
+
+            <div class="admin-eyebrow">
+              STORE INVENTORY
+            </div>
+
+            <h2>
+              All Products
+            </h2>
+
+          </div>
+
+          <div
+            id="productResultCount"
+            class="admin-result-count"
+          >
+            Loading...
+          </div>
+
+        </div>
+
+
+        <div class="admin-table-wrap">
+
+          <table class="admin-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Product
+                </th>
+
+                <th>
+                  Category
+                </th>
+
+                <th>
+                  Price
+                </th>
+
+                <th>
+                  Stock
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody id="productsTableBody">
+
+              <tr>
+
+                <td
+                  colspan="6"
+                  class="admin-table-loading"
+                >
+                  Loading products...
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           QUICK INFO
+      ================================================== -->
+
+      <section class="admin-info-grid">
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            ◈
+          </span>
+
+          <div>
+            <strong>
+              Product Management
+            </strong>
+
+            <p>
+              Keep product names, prices,
+              images and stock updated.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            ◉
+          </span>
+
+          <div>
+            <strong>
+              Inventory
+            </strong>
+
+            <p>
+              Products with zero stock
+              should be restocked before selling.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            ⚡
+          </span>
+
+          <div>
+            <strong>
+              Live Store
+            </strong>
+
+            <p>
+              Changes made here are intended
+              to reflect on the customer store.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FOOTER -->
+
+      <footer class="admin-footer">
+
+        <span>
+          © 2026 Shoply
+        </span>
+
+        <span>
+          Product Management
+        </span>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+
+  <div
+    id="shoplyAdminToast"
+    aria-live="polite"
+  ></div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
+  <script src="../js/app.js"></script>
+  <script src="../js/admin.js"></script>
+
+
+  <!-- =====================================================
+       PAGE SCRIPT
+  ====================================================== -->
+
+  <script>
+
+    let allProducts = [];
+
+    const tableBody =
+      document.getElementById(
+        "productsTableBody"
+      );
+
+    const searchInput =
+      document.getElementById(
+        "productSearch"
+      );
+
+    const resultCount =
+      document.getElementById(
+        "productResultCount"
+      );
+
+
+    /* -----------------------------------------------------
+       LOAD PRODUCTS
+    ----------------------------------------------------- */
+
+    async function loadProducts() {
+
+      tableBody.innerHTML = `
+        <tr>
+          <td
+            colspan="6"
+            class="admin-table-loading"
+          >
+            Loading products...
+          </td>
+        </tr>
+      `;
+
+      try {
+
+        allProducts =
+          await ShoplyAdmin.getProducts();
+
+        renderProductTable(
+          allProducts
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        tableBody.innerHTML = `
+          <tr>
+            <td
+              colspan="6"
+              class="admin-table-loading"
+            >
+              <div style="padding:25px">
+
+                <strong>
+                  Unable to load products
+                </strong>
+
+                <p style="opacity:.65;margin-top:8px">
+                  ${escapeHTML(
+                    error.message ||
+                    "Server connection failed"
+                  )}
+                </p>
+
+              </div>
+            </td>
+          </tr>
+        `;
+
+        resultCount.textContent =
+          "Connection error";
+
+      }
+
+    }
+
+
+    /* -----------------------------------------------------
+       RENDER TABLE
+    ----------------------------------------------------- */
+
+    function renderProductTable(
+      products
+    ) {
+
+      resultCount.textContent =
+        products.length +
+        (
+          products.length === 1
+            ? " product"
+            : " products"
+        );
+
+
+      if (!products.length) {
+
+        tableBody.innerHTML = `
+          <tr>
+
+            <td
+              colspan="6"
+              class="admin-table-loading"
+            >
+
+              <div style="padding:35px">
+
+                <div
+                  style="
+                    font-size:40px;
+                    margin-bottom:10px;
+                  "
+                >
+                  ◈
+                </div>
+
+                <strong>
+                  No products found
+                </strong>
+
+                <p
+                  style="
+                    opacity:.6;
+                    margin-top:7px;
+                  "
+                >
+                  Add your first product
+                  to start selling.
+                </p>
+
+              </div>
+
+            </td>
+
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      tableBody.innerHTML =
+        products.map(
+          product => {
+
+            const id =
+              product._id ||
+              product.id ||
+              "";
+
+            const name =
+              product.name ||
+              product.title ||
+              "Unnamed Product";
+
+            const category =
+              product.category ||
+              product.categoryName ||
+              "Uncategorized";
+
+            const price =
+              Number(
+                product.price || 0
+              );
+
+            const stock =
+              Number(
+                product.stock ??
+                product.quantity ??
+                0
+              );
+
+            const image =
+              product.image ||
+              product.imageUrl ||
+              product.thumbnail ||
+              "";
+
+            let status =
+              "In Stock";
+
+            if (stock <= 0) {
+              status = "Out of Stock";
+            } else if (stock <= 5) {
+              status = "Low Stock";
+            }
+
+
+            return `
+
+              <tr>
+
+                <!-- PRODUCT -->
+
+                <td>
+
+                  <div
+                    style="
+                      display:flex;
+                      align-items:center;
+                      gap:12px;
+                      min-width:220px;
+                    "
+                  >
+
+                    <div
+                      style="
+                        width:52px;
+                        height:52px;
+                        border-radius:12px;
+                        overflow:hidden;
+                        flex-shrink:0;
+                        background:rgba(255,255,255,.05);
+                      "
+                    >
+
+                      ${
+                        image
+                          ? `
+                            <img
+                              src="${escapeHTML(image)}"
+                              alt="${escapeHTML(name)}"
+                              style="
+                                width:100%;
+                                height:100%;
+                                object-fit:cover;
+                              "
+                              onerror="
+                                this.style.display='none'
+                              "
+                            >
+                          `
+                          : `
+                            <div
+                              style="
+                                width:100%;
+                                height:100%;
+                                display:grid;
+                                place-items:center;
+                                font-size:20px;
+                              "
+                            >
+                              ◈
+                            </div>
+                          `
+                      }
+
+                    </div>
+
+                    <div>
+
+                      <strong>
+                        ${escapeHTML(name)}
+                      </strong>
+
+                      ${
+                        product.sku
+                          ? `
+                            <small
+                              style="
+                                display:block;
+                                opacity:.5;
+                                margin-top:3px;
+                              "
+                            >
+                              SKU:
+                              ${escapeHTML(
+                                product.sku
+                              )}
+                            </small>
+                          `
+                          : ""
+                      }
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <!-- CATEGORY -->
+
+                <td>
+                  ${escapeHTML(category)}
+                </td>
+
+
+                <!-- PRICE -->
+
+                <td>
+
+                  <strong>
+                    ₹${price.toLocaleString("en-IN")}
+                  </strong>
+
+                  ${
+                    product.oldPrice
+                      ? `
+                        <small
+                          style="
+                            display:block;
+                            opacity:.45;
+                            text-decoration:line-through;
+                          "
+                        >
+                          ₹${Number(
+                            product.oldPrice
+                          ).toLocaleString("en-IN")}
+                        </small>
+                      `
+                      : ""
+                  }
+
+                </td>
+
+
+                <!-- STOCK -->
+
+                <td>
+                  ${stock}
+                </td>
+
+
+                <!-- STATUS -->
+
+                <td>
+
+                  <span
+                    class="
+                      admin-status-badge
+                      ${
+                        stock <= 0
+                          ? "danger"
+                          : stock <= 5
+                            ? "warning"
+                            : "success"
+                      }
+                    "
+                  >
+                    ${status}
+                  </span>
+
+                </td>
+
+
+                <!-- ACTION -->
+
+                <td>
+
+                  <div
+                    style="
+                      display:flex;
+                      gap:7px;
+                      flex-wrap:wrap;
+                    "
+                  >
+
+                    <button
+                      type="button"
+                      class="admin-small-btn"
+                      onclick="
+                        editProduct('${escapeHTML(id)}')
+                      "
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      type="button"
+                      class="admin-small-btn danger"
+                      onclick="
+                        removeProduct('${escapeHTML(id)}')
+                      "
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }
+        ).join("");
+
+    }
+
+
+    /* -----------------------------------------------------
+       SEARCH
+    ----------------------------------------------------- */
+
+    searchInput.addEventListener(
+      "input",
+      function () {
+
+        const filtered =
+          ShoplyAdmin.filterProducts(
+            allProducts,
+            this.value
+          );
+
+        renderProductTable(
+          filtered
+        );
+
+      }
+    );
+
+
+    /* -----------------------------------------------------
+       EDIT
+    ----------------------------------------------------- */
+
+    async function editProduct(id) {
+
+      try {
+
+        const product =
+          await ShoplyAdmin.getProduct(
+            id
+          );
+
+        if (!product) {
+
+          ShoplyAdmin.toast(
+            "Product not found",
+            "error"
+          );
+
+          return;
+        }
+
+
+        /*
+          Product editor page.
+          Product ID is passed in URL.
+        */
+
+        window.location.href =
+          "product.html?id=" +
+          encodeURIComponent(id);
+
+      } catch (error) {
+
+        ShoplyAdmin.toast(
+          error.message,
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* -----------------------------------------------------
+       DELETE
+    ----------------------------------------------------- */
+
+    async function removeProduct(id) {
+
+      try {
+
+        await ShoplyAdmin.deleteProduct(
+          id
+        );
+
+        await loadProducts();
+
+      } catch (error) {
+
+        console.error(error);
+
+        ShoplyAdmin.toast(
+          error.message,
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* -----------------------------------------------------
+       REFRESH
+    ----------------------------------------------------- */
+
+    document
+      .getElementById(
+        "refreshProducts"
+      )
+      .addEventListener(
+        "click",
+        loadProducts
+      );
+
+
+    /* -----------------------------------------------------
+       HTML ESCAPE
+    ----------------------------------------------------- */
+
+    function escapeHTML(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* -----------------------------------------------------
+       START
+    ----------------------------------------------------- */
+
+    loadProducts();
+
+  </script>
+
+</body>
+</html>

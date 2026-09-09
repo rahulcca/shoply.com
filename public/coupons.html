@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Shoply Admin Coupon Management"
+  >
+
+  <title>Shoply — Coupons</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       TOPBAR
+  ====================================================== -->
+
+  <header class="admin-topbar">
+
+    <div class="admin-brand">
+      <a href="index.html">
+        SHOP<span>LY</span>
+      </a>
+
+      <small>ADMIN PANEL</small>
+    </div>
+
+    <div class="admin-top-actions">
+
+      <a
+        href="../index.html"
+        class="admin-nav-btn"
+      >
+        🛍 Store
+      </a>
+
+      <button
+        type="button"
+        class="admin-nav-btn"
+        data-admin-logout
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       LAYOUT
+  ====================================================== -->
+
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="admin-sidebar">
+
+      <div class="admin-sidebar-title">
+        CONTROL CENTER
+      </div>
+
+      <nav class="admin-menu">
+
+        <a href="index.html">
+          <span>▦</span>
+          Dashboard
+        </a>
+
+        <a href="admin.html">
+          <span>◈</span>
+          Products
+        </a>
+
+        <a href="categories.html">
+          <span>◇</span>
+          Categories
+        </a>
+
+        <a href="order.html">
+          <span>◉</span>
+          Orders
+        </a>
+
+        <a href="customer.html">
+          <span>♙</span>
+          Customers
+        </a>
+
+        <a
+          href="coupons.html"
+          class="active"
+        >
+          <span>%</span>
+          Coupons
+        </a>
+
+        <a href="setting.html">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- ===================================================
+         MAIN
+    ==================================================== -->
+
+    <main class="admin-main">
+
+      <!-- HEADER -->
+
+      <section class="admin-page-header">
+
+        <div>
+
+          <div class="admin-eyebrow">
+            PROMOTION CENTER
+          </div>
+
+          <h1>
+            Coupons
+          </h1>
+
+          <p>
+            Create discount codes and manage
+            promotional offers for your customers.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-primary-btn"
+          id="openCouponModal"
+        >
+          + Create Coupon
+        </button>
+
+      </section>
+
+
+      <!-- =================================================
+           STATS
+      ================================================== -->
+
+      <section class="admin-stats-grid">
+
+        <div class="admin-stat-card">
+
+          <div class="admin-stat-icon">
+            %
+          </div>
+
+          <div>
+
+            <span>
+              Total Coupons
+            </span>
+
+            <strong id="totalCoupons">
+              0
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="admin-stat-card">
+
+          <div class="admin-stat-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <span>
+              Active
+            </span>
+
+            <strong id="activeCoupons">
+              0
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="admin-stat-card">
+
+          <div class="admin-stat-icon">
+            ◉
+          </div>
+
+          <div>
+
+            <span>
+              Expired
+            </span>
+
+            <strong id="expiredCoupons">
+              0
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           TOOLBAR
+    ================================================== -->
+
+      <section class="admin-toolbar">
+
+        <div class="admin-search">
+
+          <span>
+            🔎
+          </span>
+
+          <input
+            type="search"
+            id="couponSearch"
+            placeholder="Search coupon code..."
+            autocomplete="off"
+          >
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-secondary-btn"
+          id="refreshCoupons"
+        >
+          ↻ Refresh
+        </button>
+
+      </section>
+
+
+      <!-- =================================================
+           COUPONS TABLE
+    ================================================== -->
+
+      <section class="admin-panel">
+
+        <div class="admin-panel-header">
+
+          <div>
+
+            <div class="admin-eyebrow">
+              DISCOUNT CODES
+            </div>
+
+            <h2>
+              All Coupons
+            </h2>
+
+          </div>
+
+          <div
+            id="couponResultCount"
+            class="admin-result-count"
+          >
+            Loading...
+          </div>
+
+        </div>
+
+
+        <div class="admin-table-wrap">
+
+          <table class="admin-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Code
+                </th>
+
+                <th>
+                  Discount
+                </th>
+
+                <th>
+                  Minimum Order
+                </th>
+
+                <th>
+                  Usage
+                </th>
+
+                <th>
+                  Expiry
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody id="couponTableBody">
+
+              <tr>
+
+                <td
+                  colspan="7"
+                  class="admin-table-loading"
+                >
+                  Loading coupons...
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           INFO
+    ================================================== -->
+
+      <section class="admin-info-grid">
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            %
+          </span>
+
+          <div>
+
+            <strong>
+              Flexible Discounts
+            </strong>
+
+            <p>
+              Create percentage or fixed-value
+              discounts for your customers.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            ₹
+          </span>
+
+          <div>
+
+            <strong>
+              Minimum Order
+            </strong>
+
+            <p>
+              Set a minimum cart value before
+              a coupon can be applied.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+          <span class="admin-info-icon">
+            ⚡
+          </span>
+
+          <div>
+
+            <strong>
+              Expiry Control
+            </strong>
+
+            <p>
+              Give every coupon an optional
+              expiration date.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FOOTER -->
+
+      <footer class="admin-footer">
+
+        <span>
+          © 2026 Shoply
+        </span>
+
+        <span>
+          Coupon Management
+        </span>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       COUPON MODAL
+  ====================================================== -->
+
+  <div
+    id="couponModal"
+    class="admin-modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="admin-modal-overlay"
+      id="couponModalOverlay"
+    ></div>
+
+
+    <div class="admin-modal-box">
+
+      <div class="admin-modal-header">
+
+        <div>
+
+          <div class="admin-eyebrow">
+            PROMOTION
+          </div>
+
+          <h2 id="couponModalTitle">
+            Create Coupon
+          </h2>
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-modal-close"
+          id="closeCouponModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <!-- FORM -->
+
+      <form id="couponForm">
+
+        <input
+          type="hidden"
+          id="couponId"
+        >
+
+
+        <!-- CODE -->
+
+        <div class="admin-form-group">
+
+          <label for="couponCode">
+            Coupon Code
+          </label>
+
+          <input
+            type="text"
+            id="couponCode"
+            name="code"
+            placeholder="e.g. SHOPLY10"
+            maxlength="30"
+            required
+          >
+
+          <small class="admin-field-help">
+            Customers will enter this code at checkout.
+          </small>
+
+        </div>
+
+
+        <!-- TYPE -->
+
+        <div class="admin-form-group">
+
+          <label for="discountType">
+            Discount Type
+          </label>
+
+          <select
+            id="discountType"
+            name="discountType"
+          >
+
+            <option value="percentage">
+              Percentage (%)
+            </option>
+
+            <option value="fixed">
+              Fixed Amount (₹)
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- VALUE -->
+
+        <div class="admin-form-group">
+
+          <label for="discountValue">
+            Discount Value
+          </label>
+
+          <input
+            type="number"
+            id="discountValue"
+            name="discountValue"
+            placeholder="10"
+            min="0"
+            step="0.01"
+            required
+          >
+
+        </div>
+
+
+        <!-- MINIMUM -->
+
+        <div class="admin-form-group">
+
+          <label for="minimumOrder">
+            Minimum Order Value
+          </label>
+
+          <input
+            type="number"
+            id="minimumOrder"
+            name="minimumOrder"
+            placeholder="0"
+            min="0"
+            step="1"
+          >
+
+        </div>
+
+
+        <!-- MAX DISCOUNT -->
+
+        <div
+          class="admin-form-group"
+          id="maxDiscountGroup"
+        >
+
+          <label for="maxDiscount">
+            Maximum Discount
+          </label>
+
+          <input
+            type="number"
+            id="maxDiscount"
+            name="maxDiscount"
+            placeholder="500"
+            min="0"
+            step="1"
+          >
+
+          <small class="admin-field-help">
+            Useful for percentage coupons.
+          </small>
+
+        </div>
+
+
+        <!-- USAGE -->
+
+        <div class="admin-form-group">
+
+          <label for="usageLimit">
+            Usage Limit
+          </label>
+
+          <input
+            type="number"
+            id="usageLimit"
+            name="usageLimit"
+            placeholder="100"
+            min="1"
+            step="1"
+          >
+
+        </div>
+
+
+        <!-- EXPIRY -->
+
+        <div class="admin-form-group">
+
+          <label for="expiryDate">
+            Expiry Date
+          </label>
+
+          <input
+            type="datetime-local"
+            id="expiryDate"
+            name="expiresAt"
+          >
+
+        </div>
+
+
+        <!-- ACTIVE -->
+
+        <div class="admin-form-group">
+
+          <label
+            style="
+              display:flex;
+              align-items:center;
+              gap:10px;
+              cursor:pointer;
+            "
+          >
+
+            <input
+              type="checkbox"
+              id="couponActive"
+              name="active"
+              checked
+              style="
+                width:18px;
+                height:18px;
+              "
+            >
+
+            <span>
+              Coupon is active
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="admin-form-actions">
+
+          <button
+            type="button"
+            class="admin-secondary-btn"
+            id="cancelCoupon"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="admin-primary-btn"
+            id="saveCouponBtn"
+          >
+            Create Coupon
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+
+  <div
+    id="shoplyAdminToast"
+    aria-live="polite"
+  ></div>
+
+
+  <!-- =====================================================
+       JS
+  ====================================================== -->
+
+  <script src="../js/app.js"></script>
+  <script src="../js/admin.js"></script>
+
+
+  <script>
+
+    let coupons = [];
+    let editingCouponId = null;
+
+
+    const tableBody =
+      document.getElementById(
+        "couponTableBody"
+      );
+
+    const searchInput =
+      document.getElementById(
+        "couponSearch"
+      );
+
+    const resultCount =
+      document.getElementById(
+        "couponResultCount"
+      );
+
+    const modal =
+      document.getElementById(
+        "couponModal"
+      );
+
+    const form =
+      document.getElementById(
+        "couponForm"
+      );
+
+
+    /* =====================================================
+       LOAD COUPONS
+    ====================================================== */
+
+    async function loadCoupons() {
+
+      tableBody.innerHTML = `
+        <tr>
+          <td
+            colspan="7"
+            class="admin-table-loading"
+          >
+            Loading coupons...
+          </td>
+        </tr>
+      `;
+
+      try {
+
+        coupons =
+          await ShoplyAdmin.getCoupons();
+
+        updateStats();
+
+        renderCoupons(
+          coupons
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        tableBody.innerHTML = `
+          <tr>
+            <td
+              colspan="7"
+              class="admin-table-loading"
+            >
+
+              <strong>
+                Unable to load coupons
+              </strong>
+
+              <p
+                style="
+                  opacity:.6;
+                  margin-top:8px;
+                "
+              >
+                ${escapeHTML(
+                  error.message ||
+                  "Server connection failed"
+                )}
+              </p>
+
+            </td>
+          </tr>
+        `;
+
+        resultCount.textContent =
+          "Connection error";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       STATS
+    ====================================================== */
+
+    function updateStats() {
+
+      const now =
+        new Date();
+
+      const active =
+        coupons.filter(
+          coupon =>
+            isCouponActive(
+              coupon,
+              now
+            )
+        ).length;
+
+
+      const expired =
+        coupons.filter(
+          coupon => {
+
+            const date =
+              coupon.expiresAt ||
+              coupon.expiryDate ||
+              coupon.expiry;
+
+            return (
+              date &&
+              new Date(date) < now
+            );
+
+          }
+        ).length;
+
+
+      document.getElementById(
+        "totalCoupons"
+      ).textContent =
+        coupons.length;
+
+
+      document.getElementById(
+        "activeCoupons"
+      ).textContent =
+        active;
+
+
+      document.getElementById(
+        "expiredCoupons"
+      ).textContent =
+        expired;
+
+    }
+
+
+    /* =====================================================
+       ACTIVE CHECK
+    ====================================================== */
+
+    function isCouponActive(
+      coupon,
+      now = new Date()
+    ) {
+
+      if (
+        coupon.active === false ||
+        coupon.isActive === false
+      ) {
+        return false;
+      }
+
+
+      const expiry =
+        coupon.expiresAt ||
+        coupon.expiryDate ||
+        coupon.expiry;
+
+
+      if (
+        expiry &&
+        new Date(expiry) < now
+      ) {
+        return false;
+      }
+
+
+      return true;
+
+    }
+
+
+    /* =====================================================
+       RENDER
+    ====================================================== */
+
+    function renderCoupons(
+      list
+    ) {
+
+      resultCount.textContent =
+        list.length +
+        (
+          list.length === 1
+            ? " coupon"
+            : " coupons"
+        );
+
+
+      if (!list.length) {
+
+        tableBody.innerHTML = `
+          <tr>
+
+            <td
+              colspan="7"
+              class="admin-table-loading"
+            >
+
+              <div style="padding:35px">
+
+                <div
+                  style="
+                    font-size:42px;
+                    margin-bottom:10px;
+                  "
+                >
+                  %
+                </div>
+
+                <strong>
+                  No coupons found
+                </strong>
+
+                <p
+                  style="
+                    opacity:.6;
+                    margin-top:8px;
+                  "
+                >
+                  Create your first discount
+                  coupon to attract customers.
+                </p>
+
+              </div>
+
+            </td>
+
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      tableBody.innerHTML =
+        list.map(
+          coupon => {
+
+            const id =
+              coupon._id ||
+              coupon.id ||
+              "";
+
+            const code =
+              coupon.code ||
+              coupon.name ||
+              "NO CODE";
+
+            const type =
+              coupon.discountType ||
+              coupon.type ||
+              "percentage";
+
+            const value =
+              Number(
+                coupon.discountValue ??
+                coupon.value ??
+                coupon.discount ??
+                0
+              );
+
+            const minimum =
+              Number(
+                coupon.minimumOrder ??
+                coupon.minOrder ??
+                coupon.minAmount ??
+                0
+              );
+
+            const usageLimit =
+              Number(
+                coupon.usageLimit ??
+                coupon.maxUses ??
+                0
+              );
+
+            const used =
+              Number(
+                coupon.usedCount ??
+                coupon.used ??
+                coupon.usageCount ??
+                0
+              );
+
+            const expiry =
+              coupon.expiresAt ||
+              coupon.expiryDate ||
+              coupon.expiry ||
+              "";
+
+
+            const active =
+              isCouponActive(
+                coupon
+              );
+
+
+            const discount =
+              type === "fixed" ||
+              type === "amount"
+                ? "₹" +
+                  value.toLocaleString(
+                    "en-IN"
+                  )
+                : value + "%";
+
+
+            const expiryText =
+              expiry
+                ? formatDate(expiry)
+                : "No expiry";
+
+
+            return `
+
+              <tr>
+
+                <!-- CODE -->
+
+                <td>
+
+                  <div
+                    style="
+                      display:flex;
+                      align-items:center;
+                      gap:10px;
+                    "
+                  >
+
+                    <div
+                      style="
+                        width:42px;
+                        height:42px;
+                        display:grid;
+                        place-items:center;
+                        border-radius:11px;
+                        background:rgba(255,255,255,.06);
+                        font-weight:900;
+                        font-size:18px;
+                      "
+                    >
+                      %
+                    </div>
+
+                    <strong
+                      style="
+                        letter-spacing:.8px;
+                      "
+                    >
+                      ${escapeHTML(
+                        String(code).toUpperCase()
+                      )}
+                    </strong>
+
+                  </div>
+
+                </td>
+
+
+                <!-- DISCOUNT -->
+
+                <td>
+
+                  <strong>
+                    ${discount}
+                  </strong>
+
+                  <small
+                    style="
+                      display:block;
+                      opacity:.5;
+                      margin-top:3px;
+                    "
+                  >
+                    ${
+                      type === "fixed" ||
+                      type === "amount"
+                        ? "Fixed"
+                        : "Percentage"
+                    }
+                  </small>
+
+                </td>
+
+
+                <!-- MINIMUM -->
+
+                <td>
+                  ${
+                    minimum > 0
+                      ? "₹" +
+                        minimum.toLocaleString(
+                          "en-IN"
+                        )
+                      : "No minimum"
+                  }
+                </td>
+
+
+                <!-- USAGE -->
+
+                <td>
+
+                  ${
+                    usageLimit > 0
+                      ? `${used} / ${usageLimit}`
+                      : `${used} / Unlimited`
+                  }
+
+                </td>
+
+
+                <!-- EXPIRY -->
+
+                <td>
+                  ${escapeHTML(
+                    expiryText
+                  )}
+                </td>
+
+
+                <!-- STATUS -->
+
+                <td>
+
+                  <span
+                    class="
+                      admin-status-badge
+                      ${
+                        active
+                          ? "success"
+                          : "danger"
+                      }
+                    "
+                  >
+                    ${
+                      active
+                        ? "Active"
+                        : "Inactive"
+                    }
+                  </span>
+
+                </td>
+
+
+                <!-- ACTION -->
+
+                <td>
+
+                  <div
+                    style="
+                      display:flex;
+                      gap:7px;
+                      flex-wrap:wrap;
+                    "
+                  >
+
+                    <button
+                      type="button"
+                      class="admin-small-btn"
+                      onclick="
+                        editCoupon('${escapeHTML(id)}')
+                      "
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      type="button"
+                      class="admin-small-btn danger"
+                      onclick="
+                        removeCoupon('${escapeHTML(id)}')
+                      "
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }
+        ).join("");
+
+    }
+
+
+    /* =====================================================
+       OPEN MODAL
+    ====================================================== */
+
+    function openAddCouponModal() {
+
+      editingCouponId = null;
+
+      form.reset();
+
+      document.getElementById(
+        "couponActive"
+      ).checked = true;
+
+      document.getElementById(
+        "couponModalTitle"
+      ).textContent =
+        "Create Coupon";
+
+      document.getElementById(
+        "saveCouponBtn"
+      ).textContent =
+        "Create Coupon";
+
+      modal.classList.add(
+        "open"
+      );
+
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+
+      setTimeout(() => {
+
+        document.getElementById(
+          "couponCode"
+        ).focus();
+
+      }, 100);
+
+    }
+
+
+    /* =====================================================
+       CLOSE MODAL
+    ====================================================== */
+
+    function closeCouponModal() {
+
+      modal.classList.remove(
+        "open"
+      );
+
+      modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      editingCouponId = null;
+
+    }
+
+
+    /* =====================================================
+       EDIT
+    ====================================================== */
+
+    function editCoupon(id) {
+
+      const coupon =
+        coupons.find(
+          item =>
+            String(
+              item._id ||
+              item.id
+            ) === String(id)
+        );
+
+
+      if (!coupon) {
+
+        ShoplyAdmin.toast(
+          "Coupon not found",
+          "error"
+        );
+
+        return;
+      }
+
+
+      editingCouponId =
+        id;
+
+
+      document.getElementById(
+        "couponId"
+      ).value = id;
+
+
+      document.getElementById(
+        "couponCode"
+      ).value =
+        coupon.code ||
+        coupon.name ||
+        "";
+
+
+      document.getElementById(
+        "discountType"
+      ).value =
+        coupon.discountType ||
+        coupon.type ||
+        "percentage";
+
+
+      document.getElementById(
+        "discountValue"
+      ).value =
+        coupon.discountValue ??
+        coupon.value ??
+        coupon.discount ??
+        "";
+
+
+      document.getElementById(
+        "minimumOrder"
+      ).value =
+        coupon.minimumOrder ??
+        coupon.minOrder ??
+        coupon.minAmount ??
+        "";
+
+
+      document.getElementById(
+        "maxDiscount"
+      ).value =
+        coupon.maxDiscount ??
+        "";
+
+
+      document.getElementById(
+        "usageLimit"
+      ).value =
+        coupon.usageLimit ??
+        coupon.maxUses ??
+        "";
+
+
+      if (
+        coupon.expiresAt ||
+        coupon.expiryDate
+      ) {
+
+        const date =
+          new Date(
+            coupon.expiresAt ||
+            coupon.expiryDate
+          );
+
+        if (
+          !isNaN(date.getTime())
+        ) {
+
+          document.getElementById(
+            "expiryDate"
+          ).value =
+            toDateTimeLocal(date);
+
+        }
+
+      }
+
+
+      document.getElementById(
+        "couponActive"
+      ).checked =
+        coupon.active !== false &&
+        coupon.isActive !== false;
+
+
+      document.getElementById(
+        "couponModalTitle"
+      ).textContent =
+        "Edit Coupon";
+
+
+      document.getElementById(
+        "saveCouponBtn"
+      ).textContent =
+        "Update Coupon";
+
+
+      updateDiscountFields();
+
+
+      modal.classList.add(
+        "open"
+      );
+
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+    }
+
+
+    /* =====================================================
+       DELETE
+    ====================================================== */
+
+    async function removeCoupon(id) {
+
+      const coupon =
+        coupons.find(
+          item =>
+            String(
+              item._id ||
+              item.id
+            ) === String(id)
+        );
+
+
+      const code =
+        coupon?.code ||
+        "this coupon";
+
+
+      if (
+        !confirm(
+          `Delete "${code}"?`
+        )
+      ) {
+        return;
+      }
+
+
+      try {
+
+        await ShoplyAdmin.deleteCoupon(
+          id
+        );
+
+        await loadCoupons();
+
+      } catch (error) {
+
+        console.error(error);
+
+        ShoplyAdmin.toast(
+          error.message,
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SUBMIT
+    ====================================================== */
+
+    form.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+
+        let code =
+          document.getElementById(
+            "couponCode"
+          ).value
+            .trim()
+            .toUpperCase();
+
+
+        const discountType =
+          document.getElementById(
+            "discountType"
+          ).value;
+
+
+        const discountValue =
+          Number(
+            document.getElementById(
+              "discountValue"
+            ).value
+          );
+
+
+        const minimumOrder =
+          Number(
+            document.getElementById(
+              "minimumOrder"
+            ).value || 0
+          );
+
+
+        const maxDiscount =
+          Number(
+            document.getElementById(
+              "maxDiscount"
+            ).value || 0
+          );
+
+
+        const usageLimit =
+          Number(
+            document.getElementById(
+              "usageLimit"
+            ).value || 0
+          );
+
+
+        const expiresAt =
+          document.getElementById(
+            "expiryDate"
+          ).value;
+
+
+        const active =
+          document.getElementById(
+            "couponActive"
+          ).checked;
+
+
+        if (!code) {
+
+          ShoplyAdmin.toast(
+            "Coupon code is required",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (
+          !discountValue ||
+          discountValue <= 0
+        ) {
+
+          ShoplyAdmin.toast(
+            "Enter a valid discount value",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (
+          discountType ===
+            "percentage" &&
+          discountValue > 100
+        ) {
+
+          ShoplyAdmin.toast(
+            "Percentage cannot exceed 100",
+            "error"
+          );
+
+          return;
+        }
+
+
+        const payload = {
+
+          code,
+
+          name: code,
+
+          discountType,
+
+          type: discountType,
+
+          discountValue,
+
+          value: discountValue,
+
+          minimumOrder,
+
+          minOrder: minimumOrder,
+
+          maxDiscount,
+
+          usageLimit,
+
+          maxUses: usageLimit,
+
+          active,
+
+          isActive: active,
+
+          ...(expiresAt
+            ? {
+                expiresAt:
+                  new Date(
+                    expiresAt
+                  ).toISOString()
+              }
+            : {})
+
+        };
+
+
+        const button =
+          document.getElementById(
+            "saveCouponBtn"
+          );
+
+
+        button.disabled = true;
+        button.style.opacity = ".6";
+
+
+        try {
+
+          if (editingCouponId) {
+
+            await ShoplyAdmin.updateCoupon(
+              editingCouponId,
+              payload
+            );
+
+          } else {
+
+            await ShoplyAdmin.createCoupon(
+              payload
+            );
+
+          }
+
+
+          closeCouponModal();
+
+          await loadCoupons();
+
+        } catch (error) {
+
+          console.error(error);
+
+          ShoplyAdmin.toast(
+            error.message,
+            "error"
+          );
+
+        } finally {
+
+          button.disabled = false;
+          button.style.opacity = "1";
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       DISCOUNT TYPE
+    ====================================================== */
+
+    document
+      .getElementById(
+        "discountType"
+      )
+      .addEventListener(
+        "change",
+        updateDiscountFields
+      );
+
+
+    function updateDiscountFields() {
+
+      const type =
+        document.getElementById(
+          "discountType"
+        ).value;
+
+
+      const group =
+        document.getElementById(
+          "maxDiscountGroup"
+        );
+
+
+      group.style.display =
+        type === "percentage"
+          ? ""
+          : "none";
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+    ====================================================== */
+
+    searchInput.addEventListener(
+      "input",
+      function () {
+
+        const term =
+          this.value
+            .trim()
+            .toLowerCase();
+
+
+        if (!term) {
+
+          renderCoupons(
+            coupons
+          );
+
+          return;
+        }
+
+
+        const filtered =
+          coupons.filter(
+            coupon => {
+
+              const text = [
+
+                coupon.code,
+                coupon.name,
+                coupon.discountType,
+                coupon.type
+
+              ]
+                .filter(Boolean)
+                .join(" ")
+                .toLowerCase();
+
+
+              return text.includes(
+                term
+              );
+
+            }
+          );
+
+
+        renderCoupons(
+          filtered
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       BUTTONS
+    ====================================================== */
+
+    document
+      .getElementById(
+        "openCouponModal"
+      )
+      .addEventListener(
+        "click",
+        openAddCouponModal
+      );
+
+
+    document
+      .getElementById(
+        "closeCouponModal"
+      )
+      .addEventListener(
+        "click",
+        closeCouponModal
+      );
+
+
+    document
+      .getElementById(
+        "cancelCoupon"
+      )
+      .addEventListener(
+        "click",
+        closeCouponModal
+      );
+
+
+    document
+      .getElementById(
+        "couponModalOverlay"
+      )
+      .addEventListener(
+        "click",
+        closeCouponModal
+      );
+
+
+    document
+      .getElementById(
+        "refreshCoupons"
+      )
+      .addEventListener(
+        "click",
+        loadCoupons
+      );
+
+
+    /* =====================================================
+       ESC
+    ====================================================== */
+
+    document.addEventListener(
+      "keydown",
+      function (event) {
+
+        if (
+          event.key === "Escape" &&
+          modal.classList.contains(
+            "open"
+          )
+        ) {
+
+          closeCouponModal();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       DATE HELPERS
+    ====================================================== */
+
+    function formatDate(
+      value
+    ) {
+
+      const date =
+        new Date(value);
+
+
+      if (
+        isNaN(
+          date.getTime()
+        )
+      ) {
+        return "Invalid date";
+      }
+
+
+      return date.toLocaleString(
+        "en-IN",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
+
+    }
+
+
+    function toDateTimeLocal(
+      date
+    ) {
+
+      const pad =
+        number =>
+          String(number)
+            .padStart(2, "0");
+
+
+      return (
+        date.getFullYear() +
+        "-" +
+        pad(
+          date.getMonth() + 1
+        ) +
+        "-" +
+        pad(
+          date.getDate()
+        ) +
+        "T" +
+        pad(
+          date.getHours()
+        ) +
+        ":" +
+        pad(
+          date.getMinutes()
+        )
+      );
+
+    }
+
+
+    /* =====================================================
+       ESCAPE
+    ====================================================== */
+
+    function escapeHTML(
+      value
+    ) {
+
+      return String(value ?? "")
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =====================================================
+       START
+    ====================================================== */
+
+    updateDiscountFields();
+
+    loadCoupons();
+
+  </script>
+
+</body>
+</html>
