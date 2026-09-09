@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Shoply - The future of online shopping."
+    >
+
+    <meta
+        name="theme-color"
+        content="#05050b"
+    >
+
+    <title>Shoply — Future of Shopping</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- MAIN SHOPLY CSS -->
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+        SHOPLY
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="#categories">
+            Categories
+        </a>
+
+        <a href="#products">
+            Products
+        </a>
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+    </nav>
+
+
+    <div
+        style="
+            display:flex;
+            align-items:center;
+            gap:8px;
+        "
+    >
+
+        <!-- Login -->
+
+        <a
+            href="login.html"
+            class="btn btn-secondary"
+            style="
+                padding:10px 15px;
+                font-size:13px;
+            "
+        >
+            Account
+        </a>
+
+
+        <!-- Cart -->
+
+        <a
+            href="checkout.html"
+            class="btn btn-primary"
+            style="
+                padding:10px 15px;
+                font-size:13px;
+            "
+        >
+            🛒
+            <span id="cartCount">
+                0
+            </span>
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main>
+
+<section
+    class="hero"
+    data-theme="
+        radial-gradient(circle at 10% 10%, rgba(0,234,255,.13), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(139,92,246,.16), transparent 35%),
+        #05050b
+    "
+>
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="hero-badge reveal">
+
+                <span></span>
+
+                NEXT GENERATION SHOPPING
+
+            </div>
+
+
+            <h1 class="reveal">
+
+                Shop
+                <br>
+
+                <span class="gradient-text">
+                    Beyond Limits.
+                </span>
+
+            </h1>
+
+
+            <p class="reveal">
+
+                Discover a smarter, faster and more futuristic
+                shopping experience. Explore trending products,
+                powerful deals and everything you love —
+                all in one place.
+
+            </p>
+
+
+            <div
+                class="reveal"
+                style="
+                    display:flex;
+                    gap:12px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <a
+                    href="#products"
+                    class="btn btn-primary"
+                >
+                    Explore Products
+                    →
+                </a>
+
+
+                <a
+                    href="#categories"
+                    class="btn btn-secondary"
+                >
+                    Browse Categories
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
+
+<section
+    id="categories"
+    class="section"
+    data-theme="
+        radial-gradient(circle at 15% 30%, rgba(0,234,255,.10), transparent 30%),
+        radial-gradient(circle at 85% 70%, rgba(139,92,246,.13), transparent 35%),
+        #070711
+    "
+>
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="eyebrow">
+                Explore
+            </div>
+
+            <h2>
+                Shop by
+                <span class="gradient-text">
+                    Category
+                </span>
+            </h2>
+
+            <p>
+                Find exactly what you're looking for
+                through our growing collection.
+            </p>
+
+        </div>
+
+
+        <!-- Dynamic categories -->
+
+        <div
+            id="categoryGrid"
+            class="categories-grid"
+        >
+
+            <!-- Loading -->
+
+            <div
+                class="category-card reveal"
+                data-delay="1"
+            >
+
+                <div class="category-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Electronics
+                </h3>
+
+                <p>
+                    Smart tech & gadgets
+                </p>
+
+            </div>
+
+
+            <div
+                class="category-card reveal"
+                data-delay="2"
+            >
+
+                <div class="category-icon">
+                    👕
+                </div>
+
+                <h3>
+                    Fashion
+                </h3>
+
+                <p>
+                    Latest styles & trends
+                </p>
+
+            </div>
+
+
+            <div
+                class="category-card reveal"
+                data-delay="3"
+            >
+
+                <div class="category-icon">
+                    🏠
+                </div>
+
+                <h3>
+                    Home
+                </h3>
+
+                <p>
+                    Upgrade your space
+                </p>
+
+            </div>
+
+
+            <div
+                class="category-card reveal"
+                data-delay="4"
+            >
+
+                <div class="category-icon">
+                    🎮
+                </div>
+
+                <h3>
+                    Gaming
+                </h3>
+
+                <p>
+                    Level up your setup
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURE STRIP
+===================================================== -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div
+            class="glass reveal"
+            style="
+                border-radius:28px;
+                padding:30px;
+                display:grid;
+                grid-template-columns:repeat(3,1fr);
+                gap:20px;
+            "
+        >
+
+            <div>
+
+                <div
+                    style="
+                        font-size:28px;
+                        margin-bottom:10px;
+                    "
+                >
+                    🚀
+                </div>
+
+                <h3>
+                    Fast Delivery
+                </h3>
+
+                <p
+                    style="
+                        color:var(--muted);
+                        font-size:13px;
+                        margin-top:7px;
+                    "
+                >
+                    Get your orders delivered
+                    quickly and safely.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    style="
+                        font-size:28px;
+                        margin-bottom:10px;
+                    "
+                >
+                    🔒
+                </div>
+
+                <h3>
+                    Secure Shopping
+                </h3>
+
+                <p
+                    style="
+                        color:var(--muted);
+                        font-size:13px;
+                        margin-top:7px;
+                    "
+                >
+                    Your account and orders
+                    stay protected.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    style="
+                        font-size:28px;
+                        margin-bottom:10px;
+                    "
+                >
+                    💎
+                </div>
+
+                <h3>
+                    Premium Experience
+                </h3>
+
+                <p
+                    style="
+                        color:var(--muted);
+                        font-size:13px;
+                        margin-top:7px;
+                    "
+                >
+                    Modern shopping designed
+                    around you.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<section
+    id="products"
+    class="section"
+    data-theme="
+        radial-gradient(circle at 20% 20%, rgba(139,92,246,.12), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(255,60,172,.10), transparent 35%),
+        #080811
+    "
+>
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="eyebrow">
+                Trending Now
+            </div>
+
+            <h2>
+                Featured
+                <span class="gradient-text">
+                    Products
+                </span>
+            </h2>
+
+            <p>
+                Fresh products and exciting deals,
+                updated directly from the Shoply store.
+            </p>
+
+        </div>
+
+
+        <!-- Product grid -->
+
+        <div
+            id="productGrid"
+            class="products-grid"
+        >
+
+            <!-- Products loaded by app.js -->
+
+            <div
+                class="product-card reveal"
+            >
+
+                <div class="product-image">
+
+                    <div
+                        style="
+                            width:100%;
+                            height:100%;
+                            display:grid;
+                            place-items:center;
+                            font-size:50px;
+                        "
+                    >
+                        ✨
+                    </div>
+
+                </div>
+
+                <div class="product-info">
+
+                    <h3>
+                        Loading products...
+                    </h3>
+
+                    <p>
+                        Please wait
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            style="
+                text-align:center;
+                margin-top:40px;
+            "
+        >
+
+            <a
+                href="product.html"
+                class="btn btn-secondary"
+            >
+                View All Products
+                →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHY SHOPLY
+===================================================== -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="eyebrow">
+                Why Shoply
+            </div>
+
+            <h2>
+                Built for the
+                <span class="gradient-text">
+                    Future
+                </span>
+            </h2>
+
+            <p>
+                Everything you need for a modern
+                online shopping experience.
+            </p>
+
+        </div>
+
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:repeat(2,1fr);
+                gap:20px;
+            "
+        >
+
+            <div
+                class="glass reveal-left"
+                style="
+                    padding:30px;
+                    border-radius:25px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:35px;
+                        margin-bottom:18px;
+                    "
+                >
+                    🧠
+                </div>
+
+                <h3>
+                    Smart Discovery
+                </h3>
+
+                <p
+                    style="
+                        color:var(--muted);
+                        line-height:1.7;
+                        margin-top:10px;
+                    "
+                >
+                    Discover products through categories,
+                    trending collections and personalized
+                    shopping experiences.
+                </p>
+
+            </div>
+
+
+            <div
+                class="glass reveal-right"
+                style="
+                    padding:30px;
+                    border-radius:25px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:35px;
+                        margin-bottom:18px;
+                    "
+                >
+                    ⚡
+                </div>
+
+                <h3>
+                    Lightning Fast
+                </h3>
+
+                <p
+                    style="
+                        color:var(--muted);
+                        line-height:1.7;
+                        margin-top:10px;
+                    "
+                >
+                    A lightweight interface designed
+                    to make browsing and shopping feel
+                    instant.
+                </p>
+
+            </div>
+
+
+            <div
+                class="glass reveal-left"
+                style="
+                    padding:30px;
+                    border-radius:25px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:35px;
+                        margin-bottom:18px;
+                    "
+                >
+                    🛡️
+                </div>
+
+                <h3>
+                    Protected Checkout
+                </h3>
+
+                <p
+                    style="
+                        color:var(--muted);
+                        line-height:1.7;
+                        margin-top:10px;
+                    "
+                >
+                    Secure account, order and payment
+                    architecture will power the complete
+                    Shoply checkout.
+                </p>
+
+            </div>
+
+
+            <div
+                class="glass reveal-right"
+                style="
+                    padding:30px;
+                    border-radius:25px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:35px;
+                        margin-bottom:18px;
+                    "
+                >
+                    📦
+                </div>
+
+                <h3>
+                    Order Tracking
+                </h3>
+
+                <p
+                    style="
+                        color:var(--muted);
+                        line-height:1.7;
+                        margin-top:10px;
+                    "
+                >
+                    Track your orders and delivery status
+                    from one simple dashboard.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="cta reveal">
+
+            <h2>
+                Ready to
+                <span class="gradient-text">
+                    Shop?
+                </span>
+            </h2>
+
+            <p>
+                Enter the next generation of online
+                shopping with Shoply.
+            </p>
+
+            <a
+                href="#products"
+                class="btn btn-primary"
+            >
+                Start Shopping
+                →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <a
+                    href="index.html"
+                    class="logo"
+                >
+                    SHOPLY
+                </a>
+
+                <p>
+                    The future of shopping.
+                    Discover, explore and shop
+                    everything you love.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Shop
+                </h4>
+
+                <a href="#products">
+                    Products
+                </a>
+
+                <a href="#categories">
+                    Categories
+                </a>
+
+                <a href="checkout.html">
+                    Cart
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Account
+                </h4>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+                <a href="orders.html">
+                    My Orders
+                </a>
+
+                <a href="checkout.html">
+                    Checkout
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Support
+                </h4>
+
+                <a href="#">
+                    Contact
+                </a>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Shoply. All rights reserved.
+            </span>
+
+            <span>
+                Built for the future 🚀
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     SHOPLY FRONTEND ENGINE
+===================================================== -->
+
+<script src="js/app.js"></script>
+
+
+<!-- =====================================================
+     HOMEPAGE DATA CONNECTOR
+     Connects frontend with backend APIs
+===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /*
+    ======================================================
+       CART COUNT
+    ======================================================
+    */
+
+    updateCartCount();
+
+
+    /*
+    ======================================================
+       LOAD CATEGORIES
+    ======================================================
+    */
+
+    loadCategories();
+
+
+    /*
+    ======================================================
+       LOAD PRODUCTS
+    ======================================================
+    */
+
+    loadProducts();
+
+});
+
+
+/* ========================================================
+   CART
+======================================================== */
+
+function updateCartCount() {
+
+    try {
+
+        const cart =
+            JSON.parse(
+                localStorage.getItem("shoplyCart") || "[]"
+            );
+
+        const count =
+            cart.reduce(
+                (total, item) => {
+
+                    return total +
+                        Number(item.quantity || 1);
+
+                },
+                0
+            );
+
+        const element =
+            document.getElementById("cartCount");
+
+        if (element) {
+
+            element.textContent = count;
+
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Cart count error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ========================================================
+   CATEGORIES
+======================================================== */
+
+async function loadCategories() {
+
+    const grid =
+        document.getElementById(
+            "categoryGrid"
+        );
+
+    if (!grid) return;
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/categories"
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Category API error"
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        if (
+            !data.success ||
+            !Array.isArray(data.categories) ||
+            data.categories.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        grid.innerHTML =
+            data.categories
+                .slice(0, 8)
+                .map(
+                    (category, index) => {
+
+                        const name =
+                            escapeHTML(
+                                category.name ||
+                                "Category"
+                            );
+
+                        const description =
+                            escapeHTML(
+                                category.description ||
+                                "Explore products"
+                            );
+
+                        const icon =
+                            category.icon ||
+                            "✨";
+
+                        return `
+
+                            <a
+                                href="product.html?category=${encodeURIComponent(name)}"
+                                class="category-card reveal"
+                                data-delay="${(index % 5) + 1}"
+                            >
+
+                                <div class="category-icon">
+                                    ${escapeHTML(String(icon))}
+                                </div>
+
+                                <h3>
+                                    ${name}
+                                </h3>
+
+                                <p>
+                                    ${description}
+                                </p>
+
+                            </a>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+
+        activateNewReveals();
+
+    } catch (error) {
+
+        console.log(
+            "Categories are not available yet:",
+            error.message
+        );
+
+    }
+
+}
+
+
+/* ========================================================
+   PRODUCTS
+======================================================== */
+
+async function loadProducts() {
+
+    const grid =
+        document.getElementById(
+            "productGrid"
+        );
+
+    if (!grid) return;
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/products"
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Product API error"
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        if (
+            !data.success ||
+            !Array.isArray(data.products) ||
+            data.products.length === 0
+        ) {
+
+            /*
+              Backend currently has no products.
+              Keep a beautiful empty state.
+            */
+
+            grid.innerHTML = `
+
+                <div
+                    class="glass reveal"
+                    style="
+                        grid-column:1/-1;
+                        padding:50px;
+                        border-radius:25px;
+                        text-align:center;
+                    "
+                >
+
+                    <div
+                        style="
+                            font-size:45px;
+                            margin-bottom:15px;
+                        "
+                    >
+                        ✨
+                    </div>
+
+                    <h3>
+                        Products Coming Soon
+                    </h3>
+
+                    <p
+                        style="
+                            color:var(--muted);
+                            margin-top:10px;
+                        "
+                    >
+                        Products added from the
+                        Shoply Admin Panel will
+                        appear here automatically.
+                    </p>
+
+                </div>
+
+            `;
+
+            activateNewReveals();
+
+            return;
+
+        }
+
+
+        grid.innerHTML =
+            data.products
+                .slice(0, 8)
+                .map(
+                    (product, index) => {
+
+                        return createProductCard(
+                            product,
+                            index
+                        );
+
+                    }
+                )
+                .join("");
+
+
+        activateNewReveals();
+
+
+    } catch (error) {
+
+        console.log(
+            "Products are not available yet:",
+            error.message
+        );
+
+        grid.innerHTML = `
+
+            <div
+                class="glass"
+                style="
+                    grid-column:1/-1;
+                    padding:45px;
+                    border-radius:25px;
+                    text-align:center;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:42px;
+                        margin-bottom:15px;
+                    "
+                >
+                    🛍️
+                </div>
+
+                <h3>
+                    Shoply Store
+                </h3>
+
+                <p
+                    style="
+                        color:var(--muted);
+                        margin-top:10px;
+                    "
+                >
+                    Your products will appear
+                    here when the store database
+                    is connected.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* ========================================================
+   PRODUCT CARD
+======================================================== */
+
+function createProductCard(
+    product,
+    index
+) {
+
+    const id =
+        product._id ||
+        product.id ||
+        "";
+
+    const name =
+        escapeHTML(
+            product.name ||
+            "Shoply Product"
+        );
+
+    const description =
+        escapeHTML(
+            product.description ||
+            "Premium product"
+        );
+
+    const image =
+        product.image ||
+        product.imageUrl ||
+        "";
+
+    const price =
+        Number(
+            product.price || 0
+        );
+
+    const oldPrice =
+        Number(
+            product.oldPrice || 0
+        );
+
+
+    const imageHTML =
+        image
+            ? `
+                <img
+                    src="${escapeAttribute(image)}"
+                    alt="${escapeAttribute(name)}"
+                    loading="lazy"
+                    onerror="this.style.display='none';"
+                >
+              `
+            : `
+                <div
+                    style="
+                        width:100%;
+                        height:100%;
+                        display:grid;
+                        place-items:center;
+                        font-size:55px;
+                    "
+                >
+                    ✨
+                </div>
+              `;
+
+
+    return `
+
+        <article
+            class="product-card reveal"
+            data-delay="${(index % 5) + 1}"
+        >
+
+            <a
+                href="product.html?id=${encodeURIComponent(id)}"
+                class="product-image"
+            >
+
+                ${imageHTML}
+
+            </a>
+
+
+            <div class="product-info">
+
+                <a
+                    href="product.html?id=${encodeURIComponent(id)}"
+                >
+
+                    <h3>
+                        ${name}
+                    </h3>
+
+                </a>
+
+
+                <p>
+                    ${description}
+                </p>
+
+
+                <div class="product-price">
+
+                    <div>
+
+                        <span class="price">
+                            ₹${price.toLocaleString("en-IN")}
+                        </span>
+
+                        ${
+                            oldPrice > price
+                                ? `
+                                    <span class="old-price">
+                                        ₹${oldPrice.toLocaleString("en-IN")}
+                                    </span>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        type="button"
+                        aria-label="Add ${escapeAttribute(name)} to cart"
+                        onclick='addToCart(${JSON.stringify({
+                            id: id,
+                            name: product.name || "Shoply Product",
+                            price: price,
+                            image: image,
+                            quantity: 1
+                        }).replace(/'/g, "&#39;")})'
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* ========================================================
+   ADD TO CART
+======================================================== */
+
+function addToCart(product) {
+
+    try {
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem(
+                    "shoplyCart"
+                ) || "[]"
+            );
+
+
+        const existing =
+            cart.find(
+                item =>
+                    String(item.id) ===
+                    String(product.id)
+            );
+
+
+        if (existing) {
+
+            existing.quantity =
+                Number(
+                    existing.quantity || 1
+                ) + 1;
+
+        } else {
+
+            cart.push(product);
+
+        }
+
+
+        localStorage.setItem(
+            "shoplyCart",
+            JSON.stringify(cart)
+        );
+
+
+        updateCartCount();
+
+
+        /*
+          Small confirmation
+        */
+
+        showShoplyToast(
+            "Added to cart ✓"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Cart error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ========================================================
+   TOAST
+======================================================== */
+
+function showShoplyToast(message) {
+
+    const old =
+        document.querySelector(
+            ".shoply-toast"
+        );
+
+    if (old) {
+        old.remove();
+    }
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+    toast.className =
+        "shoply-toast";
+
+
+    toast.textContent =
+        message;
+
+
+    toast.style.cssText = `
+
+        position:fixed;
+
+        left:50%;
+
+        bottom:30px;
+
+        transform:translateX(-50%)
+                   translateY(20px);
+
+        z-index:99999;
+
+        padding:14px 22px;
+
+        border-radius:15px;
+
+        background:
+            rgba(10,10,20,.92);
+
+        border:
+            1px solid rgba(0,234,255,.25);
+
+        color:#fff;
+
+        box-shadow:
+            0 15px 50px rgba(0,0,0,.5),
+            0 0 30px rgba(0,234,255,.08);
+
+        backdrop-filter:blur(15px);
+
+        opacity:0;
+
+        transition:.35s ease;
+
+        font-size:14px;
+
+        font-weight:700;
+
+    `;
+
+
+    document.body.appendChild(
+        toast
+    );
+
+
+    requestAnimationFrame(() => {
+
+        toast.style.opacity =
+            "1";
+
+        toast.style.transform =
+            "translateX(-50%) translateY(0)";
+
+    });
+
+
+    setTimeout(() => {
+
+        toast.style.opacity =
+            "0";
+
+        toast.style.transform =
+            "translateX(-50%) translateY(20px)";
+
+        setTimeout(
+            () => toast.remove(),
+            350
+        );
+
+    }, 1800);
+
+}
+
+
+/* ========================================================
+   REVEAL NEW ELEMENTS
+======================================================== */
+
+function activateNewReveals() {
+
+    const elements =
+        document.querySelectorAll(
+            ".reveal:not(.active)"
+        );
+
+
+    if (!elements.length) {
+        return;
+    }
+
+
+    if (
+        !("IntersectionObserver" in window)
+    ) {
+
+        elements.forEach(
+            element =>
+                element.classList.add(
+                    "active"
+                )
+        );
+
+        return;
+
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target
+                                .classList
+                                .add("active");
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold:0.1,
+                rootMargin:
+                    "0px 0px -50px 0px"
+            }
+        );
+
+
+    elements.forEach(
+        element =>
+            observer.observe(element)
+    );
+
+}
+
+
+/* ========================================================
+   SECURITY HELPERS
+======================================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHTML(value);
+
+}
+
+</script>
+
+
+<!-- =====================================================
+     MOBILE RESPONSIVE OVERRIDE
+===================================================== -->
+
+<style>
+
+@media (max-width: 700px) {
+
+    .hero {
+        text-align:left;
+    }
+
+    .hero-content {
+        max-width:100%;
+    }
+
+    .hero h1 {
+        font-size:54px;
+    }
+
+    .navbar > div:last-child {
+        gap:5px !important;
+    }
+
+    .navbar .btn {
+        padding:9px 11px !important;
+    }
+
+    .navbar {
+        padding:10px 12px;
+    }
+
+    .logo {
+        font-size:21px;
+    }
+
+    .section > .container > .glass {
+        grid-template-columns:1fr !important;
+    }
+
+    .section > .container > div[style*="grid-template-columns:repeat(2"] {
+        grid-template-columns:1fr !important;
+    }
+
+}
+
+</style>
+
+</body>
+</html>

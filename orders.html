@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>My Orders — Shoply</title>
+
+  <meta
+    name="description"
+    content="Track and manage your Shoply orders."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ================================
+       SHOPLY ORDERS PAGE
+       ================================ */
+
+    .orders-page {
+      min-height: 100vh;
+      padding: 130px 20px 70px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .orders-page::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      top: 100px;
+      left: -220px;
+      background: rgba(0, 229, 255, 0.10);
+      filter: blur(100px);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .orders-page::after {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      right: -180px;
+      bottom: 100px;
+      background: rgba(124, 58, 237, 0.12);
+      filter: blur(100px);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .orders-container {
+      width: min(1150px, 100%);
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .orders-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .orders-heading .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid rgba(0, 229, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(0, 229, 255, 0.06);
+      color: #00e5ff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .orders-heading h1 {
+      margin: 0;
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.1;
+    }
+
+    .orders-heading h1 span {
+      background: linear-gradient(
+        90deg,
+        #00e5ff,
+        #7c3aed,
+        #ff3cac
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .orders-heading p {
+      max-width: 650px;
+      margin: 14px auto 0;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.7;
+    }
+
+    /* SUCCESS MESSAGE */
+
+    .order-success {
+      display: none;
+      margin: 0 auto 25px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      background: rgba(34, 197, 94, 0.08);
+      color: #bbf7d0;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .order-success.show {
+      display: block;
+    }
+
+    .order-success strong {
+      color: #4ade80;
+    }
+
+    /* FILTER BAR */
+
+    .orders-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 22px;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(18px);
+      border-radius: 20px;
+    }
+
+    .orders-count {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 14px;
+    }
+
+    .orders-count strong {
+      color: white;
+    }
+
+    .orders-filter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 9px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      color: #001015;
+      background: #00e5ff;
+      border-color: #00e5ff;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
+    }
+
+    /* ORDER CARD */
+
+    .orders-list {
+      display: grid;
+      gap: 20px;
+    }
+
+    .order-card {
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.055),
+          rgba(255, 255, 255, 0.018)
+        );
+      backdrop-filter: blur(22px);
+      border-radius: 24px;
+      padding: 22px;
+      overflow: hidden;
+      position: relative;
+      transition: 0.3s ease;
+    }
+
+    .order-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0, 229, 255, 0.25);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.2),
+        0 0 30px rgba(0, 229, 255, 0.05);
+    }
+
+    .order-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        #00e5ff,
+        #7c3aed,
+        #ff3cac
+      );
+      opacity: 0.8;
+    }
+
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .order-number {
+      font-family: "Orbitron", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .order-date {
+      margin-top: 7px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.48);
+    }
+
+    .order-status {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      white-space: nowrap;
+    }
+
+    .status-pending {
+      color: #fef3c7;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .status-processing {
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.12);
+      border: 1px solid rgba(14, 165, 233, 0.25);
+    }
+
+    .status-shipped {
+      color: #ddd6fe;
+      background: rgba(124, 58, 237, 0.13);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+    }
+
+    .status-delivered {
+      color: #bbf7d0;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+    }
+
+    .status-cancelled {
+      color: #fecaca;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    /* ITEMS */
+
+    .order-items {
+      display: grid;
+      gap: 12px;
+      padding: 20px 0;
+    }
+
+    .order-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .order-item-image {
+      width: 65px;
+      height: 65px;
+      flex: 0 0 65px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .order-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .order-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .order-item-name {
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-item-meta {
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 12px;
+    }
+
+    .order-item-price {
+      color: #00e5ff;
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* BOTTOM */
+
+    .order-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .order-total-label {
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 12px;
+    }
+
+    .order-total {
+      margin-top: 4px;
+      color: white;
+      font-family: "Orbitron", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .order-actions {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .order-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.045);
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .order-btn:hover {
+      color: #00e5ff;
+      border-color: rgba(0, 229, 255, 0.3);
+      background: rgba(0, 229, 255, 0.07);
+    }
+
+    .order-btn.primary {
+      color: #001015;
+      background: #00e5ff;
+      border-color: #00e5ff;
+    }
+
+    .order-btn.primary:hover {
+      color: #001015;
+      background: #67efff;
+      box-shadow: 0 0 22px rgba(0, 229, 255, 0.25);
+    }
+
+    /* TRACKING */
+
+    .tracking-box {
+      margin-top: 5px;
+      padding: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      display: none;
+    }
+
+    .tracking-box.open {
+      display: block;
+    }
+
+    .tracking-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 18px;
+    }
+
+    .tracking {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+      gap: 10px;
+    }
+
+    .tracking::before {
+      content: "";
+      position: absolute;
+      top: 13px;
+      left: 8%;
+      right: 8%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.09);
+      z-index: 0;
+    }
+
+    .tracking-step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tracking-dot {
+      width: 27px;
+      height: 27px;
+      margin: 0 auto 9px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #151a22;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .tracking-step.done .tracking-dot {
+      background: #00e5ff;
+      border-color: #00e5ff;
+      color: #001015;
+      box-shadow: 0 0 18px rgba(0, 229, 255, 0.3);
+    }
+
+    .tracking-step.active .tracking-dot {
+      border-color: #00e5ff;
+      color: #00e5ff;
+    }
+
+    .tracking-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .tracking-step.done .tracking-label,
+    .tracking-step.active .tracking-label {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* EMPTY */
+
+    .orders-empty {
+      text-align: center;
+      padding: 70px 25px;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .empty-icon {
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 22px;
+      font-size: 31px;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.08);
+    }
+
+    .orders-empty h2 {
+      margin: 0 0 10px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 22px;
+    }
+
+    .orders-empty p {
+      margin: 0 auto 22px;
+      max-width: 450px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* LOADING */
+
+    .orders-loading {
+      display: grid;
+      gap: 15px;
+    }
+
+    .loading-card {
+      height: 180px;
+      border-radius: 22px;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.03),
+          rgba(255,255,255,0.08),
+          rgba(255,255,255,0.03)
+        );
+      background-size: 300% 100%;
+      animation: loadingMove 1.5s infinite;
+    }
+
+    @keyframes loadingMove {
+      0% {
+        background-position: 100% 0;
+      }
+      100% {
+        background-position: -100% 0;
+      }
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 700px) {
+      .orders-page {
+        padding: 105px 14px 50px;
+      }
+
+      .orders-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .orders-filter {
+        width: 100%;
+      }
+
+      .filter-btn {
+        flex: 1;
+      }
+
+      .order-card {
+        padding: 17px;
+        border-radius: 19px;
+      }
+
+      .order-top {
+        align-items: flex-start;
+      }
+
+      .order-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .order-actions {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      .order-btn {
+        flex: 1;
+      }
+
+      .tracking {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .tracking::before {
+        top: 12px;
+        bottom: 12px;
+        left: 13px;
+        right: auto;
+        width: 2px;
+        height: auto;
+      }
+
+      .tracking-step {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+      }
+
+      .tracking-dot {
+        margin: 0;
+        flex: 0 0 27px;
+      }
+
+      .order-item-price {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================================
+       NAVBAR
+       ================================ -->
+
+  <header class="navbar" id="navbar">
+
+    <div class="nav-container">
+
+      <a href="index.html" class="logo">
+        SHOP<span>LY</span>
+      </a>
+
+      <nav class="nav-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="index.html#categories">
+          Categories
+        </a>
+
+        <a href="index.html#products">
+          Products
+        </a>
+
+        <a href="orders.html" class="active">
+          Orders
+        </a>
+
+        <a href="login.html">
+          Account
+        </a>
+
+        <a href="checkout.html" class="cart-link">
+          Cart
+          <span id="cartCount">0</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================================
+       ORDERS PAGE
+       ================================ -->
+
+  <main class="orders-page">
+
+    <div class="orders-container">
+
+      <section class="orders-heading reveal">
+
+        <div class="eyebrow">
+          <span>✦</span>
+          SHOPLY ACCOUNT
+        </div>
+
+        <h1>
+          My <span>Orders</span>
+        </h1>
+
+        <p>
+          View your recent purchases, check order status
+          and track your delivery from one place.
+        </p>
+
+      </section>
+
+
+      <!-- SUCCESS -->
+
+      <div
+        class="order-success"
+        id="orderSuccess"
+      >
+        <strong>✓ Order placed successfully!</strong>
+        Your order has been received and is now being processed.
+        <span id="successOrderNumber"></span>
+      </div>
+
+
+      <!-- TOOLBAR -->
+
+      <div class="orders-toolbar reveal">
+
+        <div class="orders-count">
+          Total Orders:
+          <strong id="ordersCount">0</strong>
+        </div>
+
+        <div class="orders-filter">
+
+          <button
+            class="filter-btn active"
+            data-filter="all"
+          >
+            All
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="pending"
+          >
+            Pending
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="processing"
+          >
+            Processing
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="shipped"
+          >
+            Shipped
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="delivered"
+          >
+            Delivered
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- LOADING -->
+
+      <div
+        class="orders-loading"
+        id="ordersLoading"
+      >
+
+        <div class="loading-card"></div>
+        <div class="loading-card"></div>
+
+      </div>
+
+
+      <!-- ORDERS -->
+
+      <div
+        class="orders-list"
+        id="ordersList"
+        style="display:none;"
+      ></div>
+
+
+      <!-- EMPTY -->
+
+      <div
+        class="orders-empty"
+        id="ordersEmpty"
+        style="display:none;"
+      >
+
+        <div class="empty-icon">
+          🛍️
+        </div>
+
+        <h2>
+          No orders yet
+        </h2>
+
+        <p>
+          Looks like you haven't placed an order yet.
+          Explore our products and start shopping.
+        </p>
+
+        <a
+          href="index.html#products"
+          class="order-btn primary"
+        >
+          Start Shopping
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ================================
+       FOOTER
+       ================================ -->
+
+  <footer class="site-footer">
+
+    <div class="footer-container">
+
+      <div class="footer-brand">
+
+        <a href="index.html" class="logo">
+          SHOP<span>LY</span>
+        </a>
+
+        <p>
+          Your next-generation shopping destination.
+          Fast, secure and built for everyone.
+        </p>
+
+      </div>
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="index.html#categories">
+          Categories
+        </a>
+
+        <a href="index.html#products">
+          Products
+        </a>
+
+        <a href="orders.html">
+          Orders
+        </a>
+
+        <a href="login.html">
+          Account
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © <span id="footerYear"></span> Shoply. All rights reserved.
+    </div>
+
+  </footer>
+
+
+  <!-- ================================
+       CORE JS
+       ================================ -->
+
+  <script src="js/app.js"></script>
+
+
+  <!-- ================================
+       ORDERS PAGE JS
+       ================================ -->
+
+  <script>
+    (() => {
+
+      "use strict";
+
+      const ordersList =
+        document.getElementById("ordersList");
+
+      const ordersLoading =
+        document.getElementById("ordersLoading");
+
+      const ordersEmpty =
+        document.getElementById("ordersEmpty");
+
+      const ordersCount =
+        document.getElementById("ordersCount");
+
+      const cartCount =
+        document.getElementById("cartCount");
+
+      const successBox =
+        document.getElementById("orderSuccess");
+
+      const successOrderNumber =
+        document.getElementById("successOrderNumber");
+
+      const footerYear =
+        document.getElementById("footerYear");
+
+
+      /* ================================
+         YEAR
+         ================================ */
+
+      footerYear.textContent =
+        new Date().getFullYear();
+
+
+      /* ================================
+         CART COUNT
+         ================================ */
+
+      function updateCartCount() {
+
+        try {
+
+          const cart =
+            JSON.parse(
+              localStorage.getItem("shoplyCart") || "[]"
+            );
+
+          const count =
+            cart.reduce(
+              (total, item) =>
+                total + Number(item.quantity || 1),
+              0
+            );
+
+          cartCount.textContent = count;
+
+        } catch {
+
+          cartCount.textContent = "0";
+
+        }
+
+      }
+
+      updateCartCount();
+
+
+      /* ================================
+         AUTH
+         ================================ */
+
+      function getToken() {
+
+        return (
+          localStorage.getItem("shoplyToken") ||
+          sessionStorage.getItem("shoplyToken") ||
+          ""
+        );
+
+      }
+
+
+      /* ================================
+         URL SUCCESS MESSAGE
+         ================================ */
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+      if (params.get("success") === "1") {
+
+        successBox.classList.add("show");
+
+        const orderId =
+          params.get("order");
+
+        if (orderId) {
+
+          successOrderNumber.textContent =
+            " Order #" + orderId;
+
+        }
+
+      }
+
+
+      /* ================================
+         ESCAPE HTML
+         ================================ */
+
+      function escapeHTML(value) {
+
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+
+      }
+
+
+      /* ================================
+         MONEY
+         ================================ */
+
+      function money(value) {
+
+        const number =
+          Number(value || 0);
+
+        return "₹" +
+          number.toLocaleString("en-IN", {
+            maximumFractionDigits: 2
+          });
+
+      }
+
+
+      /* ================================
+         DATE
+         ================================ */
+
+      function formatDate(value) {
+
+        if (!value) return "Date unavailable";
+
+        const date =
+          new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+          return String(value);
+        }
+
+        return date.toLocaleDateString(
+          "en-IN",
+          {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+          }
+        );
+
+      }
+
+
+      /* ================================
+         STATUS
+         ================================ */
+
+      function normalizeStatus(status) {
+
+        return String(
+          status || "pending"
+        )
+          .toLowerCase()
+          .replace(/\s+/g, "-");
+
+      }
+
+
+      function statusLabel(status) {
+
+        const normalized =
+          normalizeStatus(status);
+
+        const labels = {
+
+          pending: "Pending",
+
+          processing: "Processing",
+
+          shipped: "Shipped",
+
+          delivered: "Delivered",
+
+          cancelled: "Cancelled"
+
+        };
+
+        return (
+          labels[normalized] ||
+          String(status || "Pending")
+        );
+
+      }
+
+
+      /* ================================
+         TRACKING
+         ================================ */
+
+      function getTrackingHTML(status) {
+
+        const current =
+          normalizeStatus(status);
+
+        const stages = [
+          "pending",
+          "processing",
+          "shipped",
+          "delivered"
+        ];
+
+        let currentIndex =
+          stages.indexOf(current);
+
+        if (currentIndex < 0) {
+          currentIndex = 0;
+        }
+
+        return `
+          <div class="tracking-box">
+
+            <div class="tracking-title">
+              Delivery Tracking
+            </div>
+
+            <div class="tracking">
+
+              ${stages.map((stage, index) => {
+
+                let className = "";
+
+                if (index < currentIndex) {
+                  className = "done";
+                }
+
+                if (index === currentIndex) {
+                  className =
+                    current === "delivered"
+                      ? "done"
+                      : "active";
+                }
+
+                return `
+                  <div class="tracking-step ${className}">
+
+                    <div class="tracking-dot">
+                      ${index < currentIndex || current === "delivered" && index === currentIndex ? "✓" : index + 1}
+                    </div>
+
+                    <div class="tracking-label">
+                      ${statusLabel(stage)}
+                    </div>
+
+                  </div>
+                `;
+
+              }).join("")}
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      /* ================================
+         ORDER ITEMS
+         ================================ */
+
+      function getItems(order) {
+
+        return (
+          order.items ||
+          order.products ||
+          order.orderItems ||
+          []
+        );
+
+      }
+
+
+      function renderItems(order) {
+
+        const items =
+          getItems(order);
+
+        if (!items.length) {
+
+          return `
+            <div class="order-item">
+
+              <div class="order-item-image">
+                <div style="
+                  width:100%;
+                  height:100%;
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  font-size:25px;
+                ">
+                  🛍️
+                </div>
+              </div>
+
+              <div class="order-item-info">
+
+                <div class="order-item-name">
+                  Order Items
+                </div>
+
+                <div class="order-item-meta">
+                  ${order.itemsCount || 1} item(s)
+                </div>
+
+              </div>
+
+            </div>
+          `;
+
+        }
+
+
+        return items.map(item => {
+
+          const product =
+            item.product || {};
+
+          const name =
+            item.name ||
+            product.name ||
+            "Product";
+
+          const image =
+            item.image ||
+            product.image ||
+            "images/product.jpg";
+
+          const quantity =
+            Number(
+              item.quantity ||
+              item.qty ||
+              1
+            );
+
+          const price =
+            Number(
+              item.price ||
+              product.price ||
+              0
+            );
+
+          return `
+            <div class="order-item">
+
+              <div class="order-item-image">
+
+                <img
+                  src="${escapeHTML(image)}"
+                  alt="${escapeHTML(name)}"
+                  onerror="
+                    this.style.display='none';
+                    this.parentElement.innerHTML='🛍️';
+                    this.parentElement.style.display='flex';
+                    this.parentElement.style.alignItems='center';
+                    this.parentElement.style.justifyContent='center';
+                    this.parentElement.style.fontSize='25px';
+                  "
+                >
+
+              </div>
+
+              <div class="order-item-info">
+
+                <div class="order-item-name">
+                  ${escapeHTML(name)}
+                </div>
+
+                <div class="order-item-meta">
+                  Qty: ${quantity}
+                </div>
+
+              </div>
+
+              <div class="order-item-price">
+                ${money(price * quantity)}
+              </div>
+
+            </div>
+          `;
+
+        }).join("");
+
+      }
+
+
+      /* ================================
+         ORDER TOTAL
+         ================================ */
+
+      function getOrderTotal(order) {
+
+        return Number(
+          order.totalAmount ??
+          order.total ??
+          order.grandTotal ??
+          order.amount ??
+          0
+        );
+
+      }
+
+
+      /* ================================
+         ORDER ID
+         ================================ */
+
+      function getOrderId(order) {
+
+        return (
+          order.orderNumber ||
+          order.orderId ||
+          order._id ||
+          order.id ||
+          "N/A"
+        );
+
+      }
+
+
+      /* ================================
+         RENDER ORDER
+         ================================ */
+
+      function renderOrder(order) {
+
+        const id =
+          getOrderId(order);
+
+        const status =
+          normalizeStatus(
+            order.status
+          );
+
+        const statusClass =
+          [
+            "pending",
+            "processing",
+            "shipped",
+            "delivered",
+            "cancelled"
+          ].includes(status)
+            ? status
+            : "pending";
+
+        return `
+          <article
+            class="order-card reveal"
+            data-status="${escapeHTML(statusClass)}"
+          >
+
+            <div class="order-top">
+
+              <div>
+
+                <div class="order-number">
+                  ORDER #${escapeHTML(id)}
+                </div>
+
+                <div class="order-date">
+                  ${formatDate(
+                    order.createdAt ||
+                    order.date ||
+                    order.orderDate
+                  )}
+                </div>
+
+              </div>
+
+              <div class="order-status status-${statusClass}">
+                ${statusLabel(statusClass)}
+              </div>
+
+            </div>
+
+
+            <div class="order-items">
+
+              ${renderItems(order)}
+
+            </div>
+
+
+            <div class="order-bottom">
+
+              <div>
+
+                <div class="order-total-label">
+                  Total Amount
+                </div>
+
+                <div class="order-total">
+                  ${money(getOrderTotal(order))}
+                </div>
+
+              </div>
+
+
+              <div class="order-actions">
+
+                <button
+                  class="order-btn"
+                  type="button"
+                  data-track="${escapeHTML(id)}"
+                >
+                  Track Order
+                </button>
+
+                <button
+                  class="order-btn primary"
+                  type="button"
+                  data-view="${escapeHTML(id)}"
+                >
+                  View Details
+                </button>
+
+              </div>
+
+            </div>
+
+
+            ${getTrackingHTML(statusClass)}
+
+          </article>
+        `;
+
+      }
+
+
+      /* ================================
+         NORMALIZE API RESPONSE
+         ================================ */
+
+      function normalizeOrders(data) {
+
+        if (Array.isArray(data)) {
+          return data;
+        }
+
+        if (Array.isArray(data.orders)) {
+          return data.orders;
+        }
+
+        if (Array.isArray(data.data)) {
+          return data.data;
+        }
+
+        if (
+          data.data &&
+          Array.isArray(data.data.orders)
+        ) {
+          return data.data.orders;
+        }
+
+        return [];
+
+      }
+
+
+      /* ================================
+         LOAD ORDERS
+         ================================ */
+
+      async function loadOrders() {
+
+        ordersLoading.style.display =
+          "grid";
+
+        ordersList.style.display =
+          "none";
+
+        ordersEmpty.style.display =
+          "none";
+
+
+        const token =
+          getToken();
+
+
+        if (!token) {
+
+          ordersLoading.style.display =
+            "none";
+
+          ordersEmpty.innerHTML = `
+
+            <div class="empty-icon">
+              🔐
+            </div>
+
+            <h2>
+              Login Required
+            </h2>
+
+            <p>
+              Please login to your Shoply account
+              to view your orders and track deliveries.
+            </p>
+
+            <a
+              href="login.html?redirect=orders.html"
+              class="order-btn primary"
+            >
+              Login / Create Account
+            </a>
+
+          `;
+
+          ordersEmpty.style.display =
+            "block";
+
+          return;
+
+        }
+
+
+        try {
+
+          const response =
+            await fetch("/api/orders", {
+
+              method: "GET",
+
+              headers: {
+
+                "Content-Type":
+                  "application/json",
+
+                "Authorization":
+                  "Bearer " + token
+
+              }
+
+            });
+
+
+          if (
+            response.status === 401 ||
+            response.status === 403
+          ) {
+
+            throw new Error(
+              "SESSION_EXPIRED"
+            );
+
+          }
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              "Unable to load orders"
+            );
+
+          }
+
+
+          const data =
+            await response.json();
+
+
+          const orders =
+            normalizeOrders(data);
+
+
+          ordersLoading.style.display =
+            "none";
+
+
+          ordersCount.textContent =
+            orders.length;
+
+
+          if (!orders.length) {
+
+            ordersList.style.display =
+              "none";
+
+            ordersEmpty.innerHTML = `
+
+              <div class="empty-icon">
+                🛍️
+              </div>
+
+              <h2>
+                No orders yet
+              </h2>
+
+              <p>
+                Looks like you haven't placed an order yet.
+                Explore our products and start shopping.
+              </p>
+
+              <a
+                href="index.html#products"
+                class="order-btn primary"
+              >
+                Start Shopping
+              </a>
+
+            `;
+
+            ordersEmpty.style.display =
+              "block";
+
+            return;
+
+          }
+
+
+          ordersList.innerHTML =
+            orders.map(renderOrder).join("");
+
+
+          ordersList.style.display =
+            "grid";
+
+
+          activateOrderButtons();
+
+
+          activateFilters();
+
+
+          if (
+            window.ShoplyApp &&
+            typeof window.ShoplyApp.refreshReveals === "function"
+          ) {
+
+            window.ShoplyApp.refreshReveals();
+
+          }
+
+        } catch (error) {
+
+          console.error(
+            "Shoply orders error:",
+            error
+          );
+
+
+          ordersLoading.style.display =
+            "none";
+
+
+          if (
+            error.message ===
+            "SESSION_EXPIRED"
+          ) {
+
+            ordersEmpty.innerHTML = `
+
+              <div class="empty-icon">
+                🔐
+              </div>
+
+              <h2>
+                Session Expired
+              </h2>
+
+              <p>
+                Your login session has expired.
+                Please login again to continue.
+              </p>
+
+              <a
+                href="login.html?redirect=orders.html"
+                class="order-btn primary"
+              >
+                Login Again
+              </a>
+
+            `;
+
+          } else {
+
+            ordersEmpty.innerHTML = `
+
+              <div class="empty-icon">
+                ⚠️
+              </div>
+
+              <h2>
+                Unable to Load Orders
+              </h2>
+
+              <p>
+                We couldn't connect to the order server.
+                Please make sure the Shoply server is running
+                and try again.
+              </p>
+
+              <button
+                class="order-btn primary"
+                id="retryOrders"
+                type="button"
+              >
+                Try Again
+              </button>
+
+            `;
+
+          }
+
+
+          ordersEmpty.style.display =
+            "block";
+
+
+          const retry =
+            document.getElementById(
+              "retryOrders"
+            );
+
+          if (retry) {
+
+            retry.addEventListener(
+              "click",
+              loadOrders
+            );
+
+          }
+
+        }
+
+      }
+
+
+      /* ================================
+         TRACK BUTTON
+         ================================ */
+
+      function activateOrderButtons() {
+
+        document
+          .querySelectorAll("[data-track]")
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                const card =
+                  button.closest(
+                    ".order-card"
+                  );
+
+                if (!card) return;
+
+                const tracking =
+                  card.querySelector(
+                    ".tracking-box"
+                  );
+
+                if (!tracking) return;
+
+                tracking.classList.toggle(
+                  "open"
+                );
+
+                button.textContent =
+                  tracking.classList.contains("open")
+                    ? "Hide Tracking"
+                    : "Track Order";
+
+              }
+            );
+
+          });
+
+
+        document
+          .querySelectorAll("[data-view]")
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                const orderId =
+                  button.dataset.view;
+
+                if (!orderId ||
+                    orderId === "N/A") {
+                  return;
+                }
+
+
+                window.location.href =
+                  "orders.html?order=" +
+                  encodeURIComponent(
+                    orderId
+                  );
+
+              }
+            );
+
+          });
+
+      }
+
+
+      /* ================================
+         FILTERS
+         ================================ */
+
+      function activateFilters() {
+
+        const buttons =
+          document.querySelectorAll(
+            ".filter-btn"
+          );
+
+
+        buttons.forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              buttons.forEach(btn =>
+                btn.classList.remove(
+                  "active"
+                )
+              );
+
+              button.classList.add(
+                "active"
+              );
+
+
+              const filter =
+                button.dataset.filter;
+
+
+              const cards =
+                document.querySelectorAll(
+                  ".order-card"
+                );
+
+
+              cards.forEach(card => {
+
+                const status =
+                  card.dataset.status;
+
+
+                if (
+                  filter === "all" ||
+                  status === filter
+                ) {
+
+                  card.style.display =
+                    "";
+
+                } else {
+
+                  card.style.display =
+                    "none";
+
+                }
+
+              });
+
+            }
+          );
+
+        });
+
+      }
+
+
+      /* ================================
+         START
+         ================================ */
+
+      loadOrders();
+
+    })();
+  </script>
+
+</body>
+</html>

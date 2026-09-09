@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": "mttuq7uhb1v2qr",
+      "name": "Shoply Admin",
+      "email": "admin@shoply.com",
+      "password": "$2b$10$tyBXlY6YOODH8.bRDRyf5ORxLwgLEc7v8PNMzYPvCu31ARjJ2Wcfq",
+      "phone": "",
+      "role": "admin",
+      "createdAt": "2026-09-09T08:43:48.665Z"
+    }
+  ],
+  "products": [],
+  "categories": [
+    {
+      "id": "mttwikdx7g16s5",
+      "name": "aakil",
+      "slug": "aakilrty",
+      "description": "5",
+      "image": "",
+      "createdAt": "2026-09-09T09:33:50.901Z"
+    },
+    {
+      "id": "mttwil7og9k7ka",
+      "name": "aakil",
+      "slug": "aakilrty",
+      "description": "5",
+      "image": "",
+      "createdAt": "2026-09-09T09:33:51.972Z"
+    }
+  ],
+  "coupons": [],
+  "orders": []
+}
